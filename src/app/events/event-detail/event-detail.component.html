@@ -1,0 +1,5 @@
+<div *ngIf="event$ | async as event">
+  <h1>{{ event.name }}</h1>
+  id: {{ event.id }} Zeit: {{ event.start }} - {{ event.end }}
+</div>
+<a routerLink="/events">zurück zur Übersicht</a>

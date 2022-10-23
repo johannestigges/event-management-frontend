@@ -1,0 +1,5 @@
+<div *ngIf="user$ | async as user">
+  <h1>{{ user.vorname }} {{ user.nachname }}</h1>
+  id: {{ user.id }} typ: {{ user.typ }}
+</div>
+<a routerLink="/users" class="btn btn-outline-primary">zurück zur Übersicht</a>

@@ -1,0 +1,21 @@
+<h1>Mitglieder</h1>
+<div class="list-group">
+  <div
+    *ngFor="let user of userList"
+    class="list-group-item list-group-item-action d-inline-flex"
+  >
+    <a
+      [routerLink]="['/users', user.id]"
+      class="text-decoration-none flex-fill"
+    >
+      {{ user.vorname }}
+      {{ user.nachname }}
+    </a>
+    <div class="btn btn-outline-secondary mx-2" (click)="onDelete(user)">
+      löschen
+    </div>
+  </div>
+</div>
+<a routerLink="/users/add" class="mt-5 btn btn-outline-primary"
+  >Mitglied hinzufügen</a
+>

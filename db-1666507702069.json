@@ -1,0 +1,73 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "vorname": "Sepp",
+      "nachname": "Maier"
+    },
+    {
+      "id": 5,
+      "vorname": "Franz",
+      "nachname": "Beckenbauer"
+    },
+    {
+      "id": 3,
+      "vorname": "Paul",
+      "nachname": "Breitner"
+    },
+    {
+      "id": 2,
+      "vorname": "Berti",
+      "nachname": "Vogts"
+    },
+    {
+      "id": 0.7321653165738403,
+      "vorname": "Katsche",
+      "nachname": "Schwarzenbeck"
+    },
+    {
+      "id": 0.15915241765759602,
+      "vorname": "Rainer",
+      "nachname": "Bohnhoff"
+    },
+    {
+      "id": 0.7448635894013345,
+      "vorname": "Wolfgang",
+      "nachname": "Overath"
+    },
+    {
+      "id": 0.8375409255466095,
+      "vorname": "Günther",
+      "nachname": "Netzer"
+    },
+    {
+      "id": 0.7461508521810222,
+      "vorname": "Bernd",
+      "nachname": "Hölzenbein"
+    },
+    {
+      "id": 0.4041730235768398,
+      "vorname": "Uli",
+      "nachname": "Hoeness"
+    },
+    {
+      "id": 0.661186414349055,
+      "vorname": "Gerd",
+      "nachname": "Müller"
+    }
+  ],
+  "events": [
+    {
+      "id": 0.9610500242767819,
+      "name": "WM 1974"
+    },
+    {
+      "id": 0.14576497567886215,
+      "name": "EM 1972"
+    },
+    {
+      "id": 0.2189501970926212,
+      "name": "EM 1976"
+    }
+  ]
+}
