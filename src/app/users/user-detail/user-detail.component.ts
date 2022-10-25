@@ -37,8 +37,8 @@ export class UserDetailComponent implements OnInit {
       if (params.has('command')) {
         this.command = Command[params.get('command') as keyof typeof Command];
       }
-      if (this.isCommand(Command.ADD)) {
-        this._get('id').setValue(Math.random());
+      if (this.command === Command.ADD) {
+        this._get('id').setValue(Math.floor(Math.random() * 10000));
         this._get('typ').setValue(this.userTypes[0]);
       } else {
         this.service.getOne(Number(params.get('id'))).subscribe((user) => {
@@ -48,7 +48,7 @@ export class UserDetailComponent implements OnInit {
           this._get('typ').setValue(user.typ);
         });
       }
-      this.isCommand(Command.SHOW) || this.isCommand(Command.DELETE)
+      this.command === Command.SHOW || this.command === Command.DELETE
         ? this.form.disable()
         : this.form.enable();
     });
@@ -119,10 +119,6 @@ export class UserDetailComponent implements OnInit {
         ]);
         break;
     }
-  }
-
-  isCommand(command: Command) {
-    return this.command === command;
   }
 
   private _get(name: string): FormControl {

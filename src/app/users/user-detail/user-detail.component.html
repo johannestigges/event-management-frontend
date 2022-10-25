@@ -1,9 +1,15 @@
 <h1>Mitglied {{ titleText() }}</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="row">
-    <div class="col-2 col-lg-1 mb-3" *ngIf="!isCommand(Command.ADD)">
+    <div class="col-2 col-lg-1 mb-3">
       <label for="id" class="form-label">Nummer</label>
-      <input formControlName="id" type="text" class="form-control" id="id" />
+      <input
+        formControlName="id"
+        type="text"
+        class="form-control"
+        id="id"
+        readonly
+      />
     </div>
     <div class="col mb-3">
       <label for="vorname" class="form-label">Vorname</label>
