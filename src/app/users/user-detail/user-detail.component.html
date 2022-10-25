@@ -1,26 +1,28 @@
 <h1>Mitglied {{ titleText() }}</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="mb-3" *ngIf="!isCommand(Command.ADD)">
-    <label for="id" class="form-label">Nummer</label>
-    <input formControlName="id" type="text" class="form-control" id="id" />
-  </div>
-  <div class="mb-3">
-    <label for="vorname" class="form-label">Vorname</label>
-    <input
-      formControlName="vorname"
-      type="text"
-      class="form-control"
-      id="vorname"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="nachname" class="form-label">Nachname</label>
-    <input
-      formControlName="nachname"
-      type="text"
-      class="form-control"
-      id="nachname"
-    />
+  <div class="row">
+    <div class="col-2 col-lg-1 mb-3" *ngIf="!isCommand(Command.ADD)">
+      <label for="id" class="form-label">Nummer</label>
+      <input formControlName="id" type="text" class="form-control" id="id" />
+    </div>
+    <div class="col mb-3">
+      <label for="vorname" class="form-label">Vorname</label>
+      <input
+        formControlName="vorname"
+        type="text"
+        class="form-control"
+        id="vorname"
+      />
+    </div>
+    <div class="col mb-3">
+      <label for="nachname" class="form-label">Nachname</label>
+      <input
+        formControlName="nachname"
+        type="text"
+        class="form-control"
+        id="nachname"
+      />
+    </div>
   </div>
   <div class="mb-3">
     <label for="typ" class="form-label">Typ</label>
