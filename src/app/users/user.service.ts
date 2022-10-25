@@ -26,7 +26,7 @@ export class UserService {
   }
 
   update(user: User) {
-    return this.http.put<User>('/rest/users', user);
+    return this.http.put<User>(`/rest/users/${user.id}`, user);
   }
 
   remove(id: number) {

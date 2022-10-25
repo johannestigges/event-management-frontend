@@ -1,5 +1,36 @@
-<div *ngIf="user$ | async as user">
-  <h1>{{ user.vorname }} {{ user.nachname }}</h1>
-  id: {{ user.id }} typ: {{ user.typ }}
-</div>
-<a routerLink="/users" class="btn btn-outline-primary">zurück zur Übersicht</a>
+<h1>Mitglied {{ titleText() }}</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3" *ngIf="!isCommand(Command.ADD)">
+    <label for="id" class="form-label">Nummer</label>
+    <input formControlName="id" type="text" class="form-control" id="id" />
+  </div>
+  <div class="mb-3">
+    <label for="vorname" class="form-label">Vorname</label>
+    <input
+      formControlName="vorname"
+      type="text"
+      class="form-control"
+      id="vorname"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="nachname" class="form-label">Nachname</label>
+    <input
+      formControlName="nachname"
+      type="text"
+      class="form-control"
+      id="nachname"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="typ" class="form-label">Typ</label>
+    <select class="form-select" formControlName="typ">
+      <option *ngFor="let typ of userTypes" [ngValue]="typ">{{ typ }}</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-outline-primary">
+    {{ submitButtonText() }}
+  </button>
+  <a routerLink="/users" class="btn btn-outline-secondary mx-2"> Abbrechen </a>
+</form>

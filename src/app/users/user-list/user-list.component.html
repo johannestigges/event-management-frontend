@@ -5,17 +5,21 @@
     class="list-group-item list-group-item-action d-inline-flex"
   >
     <a
-      [routerLink]="['/users', user.id]"
+      [routerLink]="['/users', 'detail', { id: user.id, command: 'SHOW' }]"
       class="text-decoration-none flex-fill"
     >
       {{ user.vorname }}
       {{ user.nachname }}
     </a>
-    <div class="btn btn-outline-secondary mx-2" (click)="onDelete(user)">
-      löschen
-    </div>
+    <a
+      [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
+      class="btn btn-outline-secondary mx-2"
+      >löschen</a
+    >
   </div>
 </div>
-<a routerLink="/users/add" class="mt-5 btn btn-outline-primary"
+<a
+  [routerLink]="['/users', 'detail', { command: 'ADD' }]"
+  class="mt-5 btn btn-outline-primary"
   >Mitglied hinzufügen</a
 >

@@ -5,16 +5,21 @@
     class="list-group-item list-group-item-action d-flex"
   >
     <a
-      [routerLink]="['/events', event.id]"
+      [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
       class="text-decoration-none flex-fill"
     >
       {{ event.name }}
     </a>
-    <div class="btn btn-outline-secondary mx-2" (click)="onDelete(event)">
+    <a
+      [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
+      class="btn btn-outline-secondary mx-2"
+    >
       löschen
-    </div>
+    </a>
   </div>
 </div>
-<a routerLink="/events/add" class="mt-5 btn btn-outline-primary"
+<a
+  [routerLink]="['/events', 'detail', { command: 'ADD' }]"
+  class="mt-5 btn btn-outline-primary"
   >Veranstaltung hinzufügen</a
 >

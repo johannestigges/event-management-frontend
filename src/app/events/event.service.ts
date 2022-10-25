@@ -27,10 +27,10 @@ export class EventService {
   }
 
   update(event: Event) {
-    return this.http.put<Event>('/rest/events', event);
+    return this.http.put<Event>(`/rest/events/${event.id}`, event);
   }
 
   remove(id: number) {
-    return this.http.delete<void>(`/rest/events/${id}`);
+    return this.http.delete<Event>(`/rest/events/${id}`);
   }
 }
