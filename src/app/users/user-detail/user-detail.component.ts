@@ -126,6 +126,11 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
+  participate(event: Event) {
+    const user_id = Number(this._get('id').value);
+    return event.participants?.find((p) => p.user_id === user_id)?.participate;
+  }
+
   private _addEvents(user_id: number) {
     this.eventService.getAll().subscribe((events) => {
       events
