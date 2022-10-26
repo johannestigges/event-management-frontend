@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
+import { Event } from 'src/app/model/event';
 import { UserType } from 'src/app/model/user';
 import { UserService } from '../user.service';
 
@@ -13,6 +15,7 @@ import { UserService } from '../user.service';
 export class UserDetailComponent implements OnInit {
   Command = Command;
   command = Command.SHOW;
+  events: Event[] = [];
 
   form = this.fb.group({
     id: [''],
@@ -29,6 +32,7 @@ export class UserDetailComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private service: UserService,
+    private eventService: EventService,
     private fb: FormBuilder
   ) {}
 
@@ -46,6 +50,7 @@ export class UserDetailComponent implements OnInit {
           this._get('vorname').setValue(user.vorname);
           this._get('nachname').setValue(user.nachname);
           this._get('typ').setValue(user.typ);
+          this._addEvents(Number(user.id));
         });
       }
       this.command === Command.SHOW || this.command === Command.DELETE
@@ -119,6 +124,18 @@ export class UserDetailComponent implements OnInit {
         ]);
         break;
     }
+  }
+
+  private _addEvents(user_id: number) {
+    this.eventService.getAll().subscribe((events) => {
+      events
+        .filter(
+          (event) =>
+            event.participants &&
+            event.participants.filter((p) => p.user_id === user_id).length > 0
+        )
+        .forEach((event) => this.events.push(event));
+    });
   }
 
   private _get(name: string): FormControl {

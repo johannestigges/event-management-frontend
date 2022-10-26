@@ -41,6 +41,49 @@
       />
     </div>
   </div>
+  <div class="row gx-5 mb-3">
+    <div class="col">
+      <h3>Teilnehmer</h3>
+      <div *ngFor="let participant of participants" class="row">
+        <div class="col">
+          <input
+            [disabled]="form.disabled"
+            type="checkbox"
+            class="form-check-input mx-2 col"
+            [checked]="participant.participate"
+            (click)="participate(participant)"
+          />
+          <a
+            [routerLink]="[
+              '/users/',
+              'detail',
+              { id: participant.user_id, command: 'SHOW' }
+            ]"
+          >
+            {{ userName(participant.user_id) }}
+          </a>
+        </div>
+        <div
+          *ngIf="form.enabled"
+          class="btn btn-outline-secondary ms-2 col-1"
+          (click)="removeParticipant(participant)"
+        >
+          x
+        </div>
+      </div>
+    </div>
+    <div *ngIf="form.enabled && nicht_zugeordnete.length" class="col">
+      <h3>nicht zugeordnete Teilnehmer</h3>
+      <div class="btn btn-outline-primary mb-3" (click)="alleZuordnen()">
+        &lt; alle zuordnen
+      </div>
+      <div *ngFor="let user of nicht_zugeordnete">
+        <div (click)="zuordnen(user)" class="btn btn-outline-secondary">
+          &lt; {{ userName(user.id) }}
+        </div>
+      </div>
+    </div>
+  </div>
   <button type="submit" class="btn btn-outline-primary">
     {{ submitButtonText() }}
   </button>

@@ -37,6 +37,16 @@
     </select>
   </div>
 
+  <div *ngIf="events.length" class="mb-3">
+    <h2>Veranstaltungen</h2>
+    <div *ngFor="let event of events" class="ms-2 mb-2">
+      <a
+        [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
+        >{{ event.name }}</a
+      >
+    </div>
+  </div>
+
   <button type="submit" class="btn btn-outline-primary">
     {{ submitButtonText() }}
   </button>

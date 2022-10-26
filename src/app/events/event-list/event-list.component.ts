@@ -20,6 +20,10 @@ export class EventListComponent implements OnInit {
     this.service.remove(event.id).subscribe(() => this._loadEvents());
   }
 
+  zusagen(event: Event) {
+    return event.participants?.filter((p) => p.participate).length;
+  }
+
   private _loadEvents() {
     this.service.getAll().subscribe((events) => (this.events = events));
   }

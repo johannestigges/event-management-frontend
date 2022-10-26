@@ -6,13 +6,16 @@
   >
     <a
       [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
-      class="text-decoration-none flex-fill"
+      class="text-decoration-none flex-fill d-flex"
     >
-      {{ event.name }}
+      <div class="flex-fill">
+        {{ event.name }}
+      </div>
+      <div>{{ zusagen(event) }} Teilnehmer</div>
     </a>
     <a
       [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
-      class="btn btn-outline-secondary mx-2"
+      class="btn btn-outline-secondary ms-5"
     >
       löschen
     </a>
