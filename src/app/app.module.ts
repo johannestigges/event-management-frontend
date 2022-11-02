@@ -10,6 +10,7 @@ import { EventListComponent } from './events/event-list/event-list.component';
 import { EventDetailComponent } from './events/event-detail/event-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProtocolComponent } from './protocol/protocol/protocol.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EventListComponent,
     EventDetailComponent,
     PageNotFoundComponent,
+    ProtocolComponent,
   ],
   imports: [
     BrowserModule,

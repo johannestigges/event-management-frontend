@@ -1,0 +1,19 @@
+<p>Historie</p>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Datum</th>
+      <th scope="col">Typ</th>
+      <th scope="col">Id</th>
+      <th scope="col">Daten</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prococol of protocols">
+      <td>{{ prococol.createdAt | date }}</td>
+      <td>{{ prococol.type }}</td>
+      <td>{{ prococol.entityType }} {{ prococol.entityId }}</td>
+      <td>{{ prococol.data }}</td>
+    </tr>
+  </tbody>
+</table>
