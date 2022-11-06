@@ -2,10 +2,10 @@ export interface User {
   id: number;
   vorname: string;
   nachname: string;
-  typ: UserType;
+  status: UserStatus;
 }
 
-export enum UserType {
+export enum UserStatus {
   Mitglied,
   Gast,
 }

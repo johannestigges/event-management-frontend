@@ -11,6 +11,7 @@
       {{ user.vorname }}
       {{ user.nachname }}
     </a>
+    <div class="mx-2"> {{user.status}}</div>
     <a
       [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
       class="btn btn-outline-secondary mx-2"
