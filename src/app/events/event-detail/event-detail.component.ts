@@ -43,9 +43,7 @@ export class EventDetailComponent implements OnInit {
         if (params.has('command')) {
           this.command = Command[params.get('command') as keyof typeof Command];
         }
-        if (this.isCommand(Command.ADD)) {
-          this._get('id').setValue(Math.floor(Math.random() * 1000000));
-        } else {
+        if (!this.isCommand(Command.ADD)) {
           this.service.getOne(Number(params.get('id'))).subscribe((event) => {
             this._get('id').setValue(event.id);
             this._get('name').setValue(event.name);

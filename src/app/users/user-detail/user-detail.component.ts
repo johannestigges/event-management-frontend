@@ -42,7 +42,6 @@ export class UserDetailComponent implements OnInit {
         this.command = Command[params.get('command') as keyof typeof Command];
       }
       if (this.command === Command.ADD) {
-        this._get('id').setValue(Math.floor(Math.random() * 10000));
         this._get('typ').setValue(this.userTypes[0]);
       } else {
         this.service.getOne(Number(params.get('id'))).subscribe((user) => {
