@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from 'src/app/model/command';
 import { Participant } from 'src/app/model/participant';
 import { User } from 'src/app/model/user';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/users/user.service';
 import { EventService } from '../event.service';
 
@@ -19,6 +20,7 @@ export class EventDetailComponent implements OnInit {
   users: User[] = [];
   nicht_zugeordnete: User[] = [];
   participants: Participant[] = [];
+  isAdmin=false;
 
   form = this.fb.group({
     id: [''],
@@ -32,10 +34,12 @@ export class EventDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private service: EventService,
     private userService: UserService,
+    private authenticationService: AuthenticationService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
     this.userService.getAll().subscribe((users) => {
       this.users = users;
       this.nicht_zugeordnete = users;

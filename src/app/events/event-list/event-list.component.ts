@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Event } from 'src/app/model/event';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EventService } from '../event.service';
 
 @Component({
@@ -10,9 +10,14 @@ import { EventService } from '../event.service';
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
-  constructor(private service: EventService) {}
+  isAdmin=false;
+
+  constructor(
+    private service: EventService, 
+    private authenticationService: AuthenticationService) {}
 
   ngOnInit() {
+    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
     this._loadEvents();
   }
 

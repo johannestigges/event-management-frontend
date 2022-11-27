@@ -1,26 +1,15 @@
 <h1>Mitglieder</h1>
 <div class="list-group">
-  <div
-    *ngFor="let user of userList"
-    class="list-group-item list-group-item-action d-inline-flex"
-  >
-    <a
-      [routerLink]="['/users', 'detail', { id: user.id, command: 'SHOW' }]"
-      class="text-decoration-none flex-fill"
-    >
+  <div *ngFor="let user of userList" class="list-group-item list-group-item-action d-inline-flex">
+    <a [routerLink]="['/users', 'detail', { id: user.id, command: 'SHOW' }]" 
+      class="text-decoration-none flex-fill">
       {{ user.vorname }}
       {{ user.nachname }}
     </a>
     <div class="mx-2"> {{user.status}}</div>
-    <a
-      [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
-      class="btn btn-outline-secondary mx-2"
-      >löschen</a
-    >
+    <a *ngIf="isAdmin" [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
+      class="btn btn-outline-secondary mx-2">löschen</a>
   </div>
 </div>
-<a
-  [routerLink]="['/users', 'detail', { command: 'ADD' }]"
-  class="mt-5 btn btn-outline-primary"
-  >Mitglied hinzufügen</a
->
+<a *ngIf="isAdmin" [routerLink]="['/users', 'detail', { command: 'ADD' }]" 
+  class="mt-5 btn btn-outline-primary">Mitglied hinzufügen</a>

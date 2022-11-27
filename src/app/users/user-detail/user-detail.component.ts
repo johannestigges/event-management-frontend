@@ -5,6 +5,7 @@ import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
 import { Event } from 'src/app/model/event';
 import { UserStatus } from 'src/app/model/user';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class UserDetailComponent implements OnInit {
   Command = Command;
   command = Command.SHOW;
   events: Event[] = [];
+  isAdmin=false;
 
   form = this.fb.group({
     id: [''],
@@ -33,10 +35,12 @@ export class UserDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private service: UserService,
     private eventService: EventService,
+    private authenticationService: AuthenticationService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
+    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.has('command')) {
         this.command = Command[params.get('command') as keyof typeof Command];
@@ -58,7 +62,7 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-  submitButtonText() {
+    submitButtonText() {
     switch (this.command) {
       case Command.ADD:
         return 'Anlegen';

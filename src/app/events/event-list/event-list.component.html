@@ -13,7 +13,7 @@
       </div>
       <div>{{ zusagen(event) }} Teilnehmer</div>
     </a>
-    <a
+    <a *ngIf="isAdmin"
       [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
       class="btn btn-outline-secondary ms-5"
     >
@@ -21,7 +21,7 @@
     </a>
   </div>
 </div>
-<a
+<a *ngIf="isAdmin"
   [routerLink]="['/events', 'detail', { command: 'ADD' }]"
   class="mt-5 btn btn-outline-primary"
   >Veranstaltung hinzufügen</a

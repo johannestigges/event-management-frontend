@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,10 +25,10 @@ import { ProtocolComponent } from './protocol/protocol/protocol.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpClientXsrfModule,
     AppRoutingModule,
     ReactiveFormsModule,
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
