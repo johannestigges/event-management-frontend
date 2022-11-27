@@ -11,6 +11,7 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProtocolComponent } from './protocol/protocol/protocol.component';
+import { ParticipantsComponent } from './events/participants/participants.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ProtocolComponent } from './protocol/protocol/protocol.component';
     EventDetailComponent,
     PageNotFoundComponent,
     ProtocolComponent,
+    ParticipantsComponent,
   ],
   imports: [
     BrowserModule,
