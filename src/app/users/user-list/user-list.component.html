@@ -6,6 +6,7 @@
       {{ user.vorname }}
       {{ user.nachname }}
     </a>
+    <div class="mx-2">{{user.instrument?.instrument}}</div>
     <div class="mx-2"> {{user.status}}</div>
     <a *ngIf="isAdmin" [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
       class="btn btn-outline-secondary mx-2">löschen</a>

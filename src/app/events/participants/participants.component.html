@@ -8,7 +8,7 @@
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
-            <td>{{user.vorname}} {{user.nachname}}</td>
+            <td>{{user.vorname}} {{user.nachname}} {{user.instrument?.instrument}}</td>
             <td *ngFor="let event of events">
                 <span [class]="participate(event,user)"></span>
             </td>

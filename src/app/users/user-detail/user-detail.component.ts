@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
 import { Event } from 'src/app/model/event';
-import { UserStatus } from 'src/app/model/user';
+import { Instrument, UserStatus } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
 
@@ -17,13 +17,15 @@ export class UserDetailComponent implements OnInit {
   Command = Command;
   command = Command.SHOW;
   events: Event[] = [];
-  isAdmin=false;
+  isAdmin = false;
+  instruments: Instrument[] = [];
 
   form = this.fb.group({
     id: [''],
     vorname: ['', Validators.required],
     nachname: ['', Validators.required],
     status: ['', Validators.required],
+    instrument: ['']
   });
 
   userStatus: string[] = Object.values(UserStatus).filter(
@@ -37,10 +39,11 @@ export class UserDetailComponent implements OnInit {
     private eventService: EventService,
     private authenticationService: AuthenticationService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
+    this.service.getInstruments().subscribe(instrument => this.instruments = instrument);
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.has('command')) {
         this.command = Command[params.get('command') as keyof typeof Command];
@@ -53,6 +56,7 @@ export class UserDetailComponent implements OnInit {
           this._get('vorname').setValue(user.vorname);
           this._get('nachname').setValue(user.nachname);
           this._get('status').setValue(user.status);
+          this._get('instrument').setValue(user.instrument?.id);
           this._addEvents(Number(user.id));
         });
       }
@@ -62,7 +66,7 @@ export class UserDetailComponent implements OnInit {
     });
   }
 
-    submitButtonText() {
+  submitButtonText() {
     switch (this.command) {
       case Command.ADD:
         return 'Anlegen';
@@ -93,24 +97,14 @@ export class UserDetailComponent implements OnInit {
       case Command.ADD:
         if (this.form.valid) {
           this.service
-            .add({
-              id: this._get('id').value,
-              vorname: this._get('vorname').value,
-              nachname: this._get('nachname').value,
-              status: this._get('status').value,
-            })
+            .add(this._toUser())
             .subscribe(() => this.router.navigate(['/users']));
         }
         break;
       case Command.MODIFY:
         if (this.form.valid) {
           this.service
-            .update({
-              id: this._get('id').value,
-              vorname: this._get('vorname').value,
-              nachname: this._get('nachname').value,
-              status: this._get('status').value,
-            })
+            .update(this._toUser())
             .subscribe(() => this.router.navigate(['/users']));
         }
         break;
@@ -148,5 +142,20 @@ export class UserDetailComponent implements OnInit {
 
   private _get(name: string): FormControl {
     return this.form.get(name) as FormControl;
+  }
+
+  private _getInstrument() {
+    const id = this._get('instrument').value;
+    return this.instruments.find(i => i.id === +id);
+  }
+  
+  private _toUser() {
+    return {
+      id: this._get('id').value,
+      vorname: this._get('vorname').value,
+      nachname: this._get('nachname').value,
+      status: this._get('status').value,
+      instrument: this._getInstrument()
+    }
   }
 }

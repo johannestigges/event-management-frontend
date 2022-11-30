@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../model/user';
+import { Instrument, User } from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,10 @@ export class UserService {
 
   getAll() {
     return this.http.get<User[]>('/rest/users');
+  }
+
+  getInstruments() {
+    return this.http.get<Instrument[]>('/rest/users/instruments');
   }
 
   getOne(id: number) {
