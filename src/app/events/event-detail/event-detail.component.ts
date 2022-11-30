@@ -137,7 +137,6 @@ export class EventDetailComponent implements OnInit {
     if (p) {
       p.participate = !participant.participate;
     }
-    console.log('participate', this.participants);
   }
 
   setParticipants(participants?: Participant[]) {
@@ -166,7 +165,6 @@ export class EventDetailComponent implements OnInit {
   }
 
   zuordnen(user: User) {
-    console.log('zuordnen', user);
     this.participants.push({
       user_id: user.id,
       participate: false,
