@@ -3,12 +3,14 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th class="d-none d-sm-block">Instrument</th>
             <th *ngFor="let event of events">{{event.name}}</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
-            <td>{{user.vorname}} {{user.nachname}} {{user.instrument?.instrument}}</td>
+            <td>{{user.vorname}} {{user.nachname}}</td>
+            <td class="d-none d-sm-block">{{user.instrument?.instrument}}</td>
             <td *ngFor="let event of events">
                 <span [class]="participate(event,user)"></span>
             </td>

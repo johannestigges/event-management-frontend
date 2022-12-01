@@ -27,6 +27,7 @@ export class ParticipantsComponent implements OnInit {
   }
 
   participate(event: Event, user: User) {
-    return event.participants?.find(p => p.user_id === user.id)?.participate ? "fa fa-check" : "fa fa-minus";
+    return event.participants?.find(p => p.user_id === user.id)?.participate 
+    ? "fa fa-check text-success fs-5" : "fa fa-minus text-danger fs-5";
   }
 }
