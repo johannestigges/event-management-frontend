@@ -1,0 +1,8 @@
+<div *ngIf="errorData?.hasError" class="text-bg-danger m-3 p-3">
+    <div *ngIf="errorData?.message">{{errorData?.message}}</div>
+    <div *ngIf="errorData?.description">{{errorData?.description}}</div>
+    <div *ngIf="errorData?.details" )>
+        <span *ngIf="showDetails">{{errorData?.details}}</span>
+        <span (click)="showDetails = !showDetails">Ein/Ausblenden</span>
+    </div>
+</div>
