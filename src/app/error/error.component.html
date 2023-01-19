@@ -1,8 +1,11 @@
-<div *ngIf="errorData?.hasError" class="text-bg-danger m-3 p-3">
-    <div *ngIf="errorData?.message">{{errorData?.message}}</div>
-    <div *ngIf="errorData?.description">{{errorData?.description}}</div>
-    <div *ngIf="errorData?.details" )>
-        <span *ngIf="showDetails">{{errorData?.details}}</span>
-        <span (click)="showDetails = !showDetails">Ein/Ausblenden</span>
+<div *ngIf="errorData?.hasError" class="d-flex text-bg-danger m-3 p-3">
+    <h1 class="m-2 me-4 fa fa-exclamation-circle" style="font-size: 300%;"></h1>
+    <div>
+        <div *ngIf="errorData?.message">{{errorData?.message}}</div>
+        <div *ngIf="errorData?.description">{{errorData?.description}}</div>
+        <div *ngIf="errorData?.details" )>
+            <span *ngIf="showDetails">{{errorData?.details}}</span>
+            <span (click)="showDetails = !showDetails">Ein/Ausblenden</span>
+        </div>
     </div>
 </div>

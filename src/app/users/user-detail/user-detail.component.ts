@@ -22,6 +22,7 @@ export class UserDetailComponent implements OnInit {
 
   form = this.fb.group({
     id: [''],
+    version: [''],
     vorname: ['', Validators.required],
     nachname: ['', Validators.required],
     status: ['', Validators.required],
@@ -152,6 +153,7 @@ export class UserDetailComponent implements OnInit {
   private _toUser() {
     return {
       id: this._get('id').value,
+      version: this._get('version').value,
       vorname: this._get('vorname').value,
       nachname: this._get('nachname').value,
       status: this._get('status').value,
