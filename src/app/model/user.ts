@@ -1,5 +1,6 @@
 export interface User {
   id: number;
+  version: number;
   vorname: string;
   nachname: string;
   status: UserStatus;

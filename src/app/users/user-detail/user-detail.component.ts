@@ -54,6 +54,7 @@ export class UserDetailComponent implements OnInit {
       } else {
         this.service.getOne(Number(params.get('id'))).subscribe((user) => {
           this._get('id').setValue(user.id);
+          this._get('version').setValue(user.version);
           this._get('vorname').setValue(user.vorname);
           this._get('nachname').setValue(user.nachname);
           this._get('status').setValue(user.status);
@@ -149,7 +150,7 @@ export class UserDetailComponent implements OnInit {
     const id = this._get('instrument').value;
     return this.instruments.find(i => i.id === +id);
   }
-  
+
   private _toUser() {
     return {
       id: this._get('id').value,
