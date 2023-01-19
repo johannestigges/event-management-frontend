@@ -24,6 +24,7 @@ export class EventDetailComponent implements OnInit {
 
   form = this.fb.group({
     id: [''],
+    version: [''],
     name: ['', Validators.required],
     start: ['', Validators.required],
     end: ['', Validators.required],
@@ -50,6 +51,7 @@ export class EventDetailComponent implements OnInit {
         if (!this.isCommand(Command.ADD)) {
           this.service.getOne(Number(params.get('id'))).subscribe((event) => {
             this._get('id').setValue(event.id);
+            this._get('version').setValue(event.version);
             this._get('name').setValue(event.name);
             this._get('start').setValue(event.start);
             this._get('end').setValue(event.end);
@@ -96,6 +98,7 @@ export class EventDetailComponent implements OnInit {
           this.service
             .add({
               id: this._get('id').value,
+              version: this._get('version').value,
               name: this._get('name').value,
               start: this._get('start').value,
               end: this._get('end').value,
@@ -109,6 +112,7 @@ export class EventDetailComponent implements OnInit {
           this.service
             .update({
               id: this._get('id').value,
+              version: this._get('version').value,
               name: this._get('name').value,
               start: this._get('start').value,
               end: this._get('end').value,
@@ -166,6 +170,7 @@ export class EventDetailComponent implements OnInit {
 
   zuordnen(user: User) {
     this.participants.push({
+      event_id: this._get('id').value,
       user_id: user.id,
       participate: false,
     });

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorService } from '../error/error.service';
 import { Event } from '../model/event';
+import { Participant } from '../model/participant';
 import { User } from '../model/user';
 
 @Injectable({
@@ -25,6 +26,11 @@ export class EventService {
   getParticipants(id: number) {
     return this.http.get<User[]>(`/rest/events/${id}/participants`)
     .pipe(catchError((error) => this.errorService.throwError("Fehler beim Lesen der Teilnehmer", error)));
+  }
+
+  updateParticipant(participant: Participant) {
+    return this.http.put<Participant>(`/rest/events/participants/${participant.event_id}`, participant)
+    .pipe(catchError((error) => this.errorService.throwError("Fehler beim Aktualisieren eines Teilnehmers", error)));
   }
 
   add(event: Event) {
