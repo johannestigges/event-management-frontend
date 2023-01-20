@@ -9,11 +9,11 @@
                 </div>
                 <div (click)="onClick(event,true)" class="d-flex flex-column align-items-center p-3">
                     <fa-icon [icon]="faCheckCircle" class="text-success fa-3x"></fa-icon>
-                    <div>Ich bin dabei!</div>
+                    <div class="d-none d-sm-inline">Ich bin dabei!</div>
                 </div>
                 <div (click)="onClick(event,false)" class="d-flex flex-column align-items-center p-3">
                     <fa-icon [icon]="faXmarkCircle" class="text-danger fa-3x"></fa-icon>
-                    Ich habe keine Zeit.
+                    <div class="d-none d-sm-inline">Ich habe keine Zeit.</div>
                 </div>
             </div>
         </div>
