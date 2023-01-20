@@ -47,6 +47,10 @@ export class ParticipateComponent implements OnInit {
       } else {
         alert("Schade! Vielleicht beim nächsten Mal");
       }
+      this.events = this.events.filter(e => e.id !== event.id);
+      if (this.events.length === 0) {
+        this.router.navigate(['/']);
+      }
     });
   }
 }
