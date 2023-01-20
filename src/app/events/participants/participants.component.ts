@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faCheckCircle, faXmarkCircle } from '@fortawesome/free-regular-svg-icons';
 import { Event } from 'src/app/model/event';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -11,6 +12,8 @@ import { EventService } from '../event.service';
   styleUrls: ['./participants.component.scss']
 })
 export class ParticipantsComponent implements OnInit {
+  readonly faCheckCircle=faCheckCircle;
+  readonly faXmarkCircle=faXmarkCircle;
   events: Event[] = [];
   users: User[] = [];
   isAdmin = false;
@@ -22,12 +25,19 @@ export class ParticipantsComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
-    this.eventService.getAll().subscribe(events => this.events = events);
-    this.userService.getAll().subscribe(users => this.users = users);
+    this.eventService.getAll().subscribe(events => {
+      this.events = events;
+      this.userService.getAll().subscribe(users => {
+        this.users = users.filter(u => this._isParticipant(u));
+      });
+    });
   }
 
   participate(event: Event, user: User) {
-    return event.participants?.find(p => p.user_id === user.id)?.participate 
-    ? "fa fa-check text-success fs-5" : "fa fa-minus text-danger fs-5";
+    return event.participants?.find(p => p.user_id === user.id)?.participate;
+  }
+
+  private _isParticipant(user: User): boolean {
+    return this.events.find(e => e.participants?.find(p => p.user_id === user.id)) !== undefined;
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProtocolComponent } from './protocol/protocol/protocol.component';
 import { ParticipantsComponent } from './events/participants/participants.component';
 import { ErrorComponent } from './error/error.component';
+import { ParticipateComponent } from './events/participants/participate/participate.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { ErrorComponent } from './error/error.component';
     ProtocolComponent,
     ParticipantsComponent,
     ErrorComponent,
+    ParticipateComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { ErrorComponent } from './error/error.component';
     HttpClientXsrfModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FontAwesomeModule
   ],
   bootstrap: [AppComponent],
 })

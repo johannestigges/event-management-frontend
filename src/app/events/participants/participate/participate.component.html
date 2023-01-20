@@ -1,0 +1,22 @@
+<div *ngIf="user">
+    <h2 class="mb-3">Teilnahme {{user.vorname}} {{user.nachname}}</h2>
+    <div *ngFor="let event of events">
+        <div *ngFor="let participant of event.participants">
+            <div *ngIf="participant.user_id === user.id" class="d-flex p-3 align-items-center">
+                <div class="d-flex flex-column p-3">
+                    <h4 class="mt-3">{{event.name}}</h4>
+                    <h5> {{event.start | date: 'dd.MM.yyyy HH:mm'}} Uhr</h5>
+                </div>
+                <div (click)="onClick(event,true)" class="d-flex flex-column align-items-center p-3">
+                    <fa-icon [icon]="faCheckCircle" class="text-success fa-3x"></fa-icon>
+                    <div>Ich bin dabei!</div>
+                </div>
+                <div (click)="onClick(event,false)" class="d-flex flex-column align-items-center p-3">
+                    <fa-icon [icon]="faXmarkCircle" class="text-danger fa-3x"></fa-icon>
+                    Ich habe keine Zeit.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a routerLink="/" class="btn btn-outline-secondary">Erledigt!</a>

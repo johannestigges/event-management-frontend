@@ -9,10 +9,21 @@
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
-            <td>{{user.vorname}} {{user.nachname}}</td>
-            <td class="d-none d-sm-block">{{user.instrument?.instrument}}</td>
+            <td>
+                <a [routerLink]="['/participate',{id:user.id}]">
+                    <span>{{user.vorname}}</span>
+                    <span class="d-none d-sm-inline"> {{user.nachname}}</span>
+                </a>
+            </td>
+            <td class="d-none d-sm-block">
+                <span class="d-none d-md-inline">{{user.instrument?.gruppe}} / </span>
+                <span>{{user.instrument?.instrument}}</span>
+            </td>
             <td *ngFor="let event of events">
-                <span [class]="participate(event,user)"></span>
+                <fa-icon *ngIf="participate(event,user)" [icon]="faCheckCircle" class="text-success">
+                </fa-icon>
+                <fa-icon *ngIf="!participate(event,user)" [icon]="faXmarkCircle" class="text-danger">
+                </fa-icon>
             </td>
         </tr>
     </tbody>
