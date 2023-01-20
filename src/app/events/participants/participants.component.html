@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            <th class="d-none d-sm-block">Instrument</th>
+            <th class="d-none d-sm-table-cell">Instrument</th>
             <th *ngFor="let event of events">{{event.name}}</th>
         </tr>
     </thead>
@@ -16,7 +16,7 @@
                 </a>
             </td>
             <td class="d-none d-sm-block">
-                <span class="d-none d-md-inline">{{user.instrument?.gruppe}} / </span>
+                <span class="d-none d-md-table-cell">{{user.instrument?.gruppe}} / </span>
                 <span>{{user.instrument?.instrument}}</span>
             </td>
             <td *ngFor="let event of events">
