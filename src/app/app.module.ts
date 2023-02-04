@@ -15,6 +15,7 @@ import { ProtocolComponent } from './protocol/protocol/protocol.component';
 import { ParticipantsComponent } from './events/participants/participants.component';
 import { ErrorComponent } from './error/error.component';
 import { ParticipateComponent } from './events/participants/participate/participate.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ParticipateComponent } from './events/participants/participate/particip
     ParticipantsComponent,
     ErrorComponent,
     ParticipateComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

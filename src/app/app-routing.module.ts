@@ -4,6 +4,7 @@ import { EventDetailComponent } from './events/event-detail/event-detail.compone
 import { EventListComponent } from './events/event-list/event-list.component';
 import { ParticipantsComponent } from './events/participants/participants.component';
 import { ParticipateComponent } from './events/participants/participate/participate.component';
+import { LoginComponent } from './login/login.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProtocolComponent } from './protocol/protocol/protocol.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'participants', component: ParticipantsComponent },
   { path: 'participate', component: ParticipateComponent },
   { path: 'protocol', component: ProtocolComponent },
-  { path: '', redirectTo: '/participants', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 

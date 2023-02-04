@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Command } from 'src/app/model/command';
 import { Participant } from 'src/app/model/participant';
 import { User } from 'src/app/model/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/users/user.service';
 import { EventService } from '../event.service';
 
@@ -15,12 +15,11 @@ import { EventService } from '../event.service';
 })
 export class EventDetailComponent implements OnInit {
   Command = Command;
-  command = Command.SHOW;
 
+  command = Command.SHOW;
   users: User[] = [];
-  nicht_zugeordnete: User[] = [];
+  unassigned_users: User[] = [];
   participants: Participant[] = [];
-  isAdmin=false;
 
   form = this.fb.group({
     id: [''],
@@ -31,19 +30,24 @@ export class EventDetailComponent implements OnInit {
   });
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private service: EventService,
-    private userService: UserService,
-    private authenticationService: AuthenticationService,
-    private fb: FormBuilder
-  ) {}
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly service: EventService,
+    private readonly userService: UserService,
+    private readonly authenticationService: AuthenticationService,
+    private readonly fb: FormBuilder
+  ) { }
 
   ngOnInit(): void {
-    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
+    this.authenticationService.hasRole(ROLE_ADMIN)
+      ? this._loadUser()
+      : this.router.navigate(['/login']);
+  }
+
+  private _loadUser() {
     this.userService.getAll().subscribe((users) => {
       this.users = users;
-      this.nicht_zugeordnete = users;
+      this.unassigned_users = users;
       this.activatedRoute.paramMap.subscribe((params) => {
         if (params.has('command')) {
           this.command = Command[params.get('command') as keyof typeof Command];
@@ -95,30 +99,26 @@ export class EventDetailComponent implements OnInit {
     switch (this.command) {
       case Command.ADD:
         if (this.form.valid) {
-          this.service
-            .add({
-              id: this._get('id').value,
-              version: this._get('version').value,
-              name: this._get('name').value,
-              start: this._get('start').value,
-              end: this._get('end').value,
-              participants: this.participants,
-            })
-            .subscribe(() => this.router.navigate(['/events']));
+          this.service.add({
+            id: this._get('id').value,
+            version: this._get('version').value,
+            name: this._get('name').value,
+            start: this._get('start').value,
+            end: this._get('end').value,
+            participants: this.participants,
+          }).subscribe(() => this.router.navigate(['/events']));
         }
         break;
       case Command.MODIFY:
         if (this.form.valid) {
-          this.service
-            .update({
-              id: this._get('id').value,
-              version: this._get('version').value,
-              name: this._get('name').value,
-              start: this._get('start').value,
-              end: this._get('end').value,
-              participants: this.participants,
-            })
-            .subscribe(() => this.router.navigate(['/events']));
+          this.service.update({
+            id: this._get('id').value,
+            version: this._get('version').value,
+            name: this._get('name').value,
+            start: this._get('start').value,
+            end: this._get('end').value,
+            participants: this.participants,
+          }).subscribe(() => this.router.navigate(['/events']));
         }
         break;
       case Command.DELETE:
@@ -137,16 +137,16 @@ export class EventDetailComponent implements OnInit {
   }
 
   participate(participant: Participant) {
-    const p = this.participants.find((p) => p.user_id === participant.user_id);
-    if (p) {
-      p.participate = !participant.participate;
+    const pa = this.participants.find((p) => p.user_id === participant.user_id);
+    if (pa) {
+      pa.participate = !participant.participate;
     }
   }
 
   setParticipants(participants?: Participant[]) {
     if (participants) {
       this.participants = participants;
-      this.nicht_zugeordnete = this.nicht_zugeordnete.filter(
+      this.unassigned_users = this.unassigned_users.filter(
         (p) => !participants.find((p2) => p2.user_id === p.id)
       );
     }
@@ -164,29 +164,27 @@ export class EventDetailComponent implements OnInit {
       : `unbekannter Name ${id}`;
   }
 
-  alleZuordnen() {
-    this.nicht_zugeordnete.forEach((user) => this.zuordnen(user));
+  assignAll() {
+    this.unassigned_users.forEach((user) => this.assign(user));
   }
 
-  zuordnen(user: User) {
+  assign(user: User) {
     this.participants.push({
       event_id: this._get('id').value,
       user_id: user.id,
       participate: false,
     });
-    this.nicht_zugeordnete = this.nicht_zugeordnete.filter(
-      (u) => u.id !== user.id
-    );
+    this.unassigned_users = this.unassigned_users
+      .filter((u) => u.id !== user.id);
   }
 
   removeParticipant(participant: Participant) {
     const user = this.users.find((u) => u.id === participant.user_id);
     if (user) {
-      this.nicht_zugeordnete.push(user);
+      this.unassigned_users.push(user);
     }
-    this.participants = this.participants.filter(
-      (p) => p.user_id !== participant.user_id
-    );
+    this.participants = this.participants
+      .filter((p) => p.user_id !== participant.user_id);
   }
 
   private _get(name: string): FormControl {

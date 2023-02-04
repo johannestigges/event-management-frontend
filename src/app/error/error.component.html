@@ -1,11 +1,18 @@
-<div *ngIf="errorData?.hasError" class="d-flex text-bg-danger m-3 p-3">
-    <h1 class="m-2 me-4 fa fa-exclamation-circle" style="font-size: 300%;"></h1>
-    <div>
-        <div *ngIf="errorData?.message">{{errorData?.message}}</div>
-        <div *ngIf="errorData?.description">{{errorData?.description}}</div>
-        <div *ngIf="errorData?.details" )>
-            <span *ngIf="showDetails">{{errorData?.details}}</span>
-            <span (click)="showDetails = !showDetails">Ein/Ausblenden</span>
+<div *ngFor="let errorData of errorList">
+    <div *ngIf="errorData?.hasError" class="d-flex bg-danger bg-opacity-25 m-3 p-3">
+        <fa-icon [icon]="faFrown" class="text-danger fa-3x me-3"></fa-icon>
+        <div class="flex-grow-1">
+            <div class="d-flex flex-row">
+                <h3 *ngIf="errorData?.message" class="flex-grow-1">{{errorData?.message}}</h3>
+                <fa-icon *ngIf="errorData?.details && showDetails" [icon]="faEyeSlash"
+                    (click)="showDetails = false"></fa-icon>
+                <fa-icon *ngIf="errorData?.details && !showDetails" [icon]="faEye"
+                    (click)="showDetails = true"></fa-icon>
+            </div>
+            <div *ngIf="errorData?.description">{{errorData?.description}}</div>
+            <div *ngIf="errorData?.details" class="d-flex flex-row mt-2">
+                <div *ngIf="showDetails">{{errorData.details}}</div>
+            </div>
         </div>
     </div>
 </div>

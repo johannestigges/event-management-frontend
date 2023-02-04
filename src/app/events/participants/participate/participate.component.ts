@@ -9,29 +9,27 @@ import { faCheckCircle, faXmarkCircle } from '@fortawesome/free-regular-svg-icon
 
 @Component({
   selector: 'evm-participate',
-  templateUrl: './participate.component.html',
-  styleUrls: ['./participate.component.scss']
+  templateUrl: './participate.component.html'
 })
 export class ParticipateComponent implements OnInit {
-  readonly faCheckCircle=faCheckCircle;
-  readonly faXmarkCircle=faXmarkCircle;
+  readonly faCheckCircle = faCheckCircle;
+  readonly faXmarkCircle = faXmarkCircle;
+
   user?: User;
   events: Event[] = [];
   participants: Participant[] = [];
 
   constructor(
-    private eventService: EventService,
-    private userService: UserService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private readonly eventService: EventService,
+    private readonly userService: UserService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.userService.getOne(Number(params.get('id'))).subscribe((user) => {
         this.user = user;
-        this.eventService.getAll().subscribe(events => {
-          this.events = events;
-        });
+        this.eventService.getAll().subscribe(events => this.events = events);
       });
     });
   }
