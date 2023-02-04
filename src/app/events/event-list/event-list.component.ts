@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from 'src/app/model/event';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { EventService } from '../event.service';
 
 @Component({
@@ -10,23 +10,27 @@ import { EventService } from '../event.service';
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
-  isAdmin=false;
 
   constructor(
-    private service: EventService, 
-    private authenticationService: AuthenticationService) {}
+    private readonly service: EventService,
+    private readonly authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
-    this._loadEvents();
+      this._loadEvents();
   }
 
   onDelete(event: Event) {
-    this.service.remove(event.id).subscribe(() => this._loadEvents());
+    if (this.authenticationService.hasRole(ROLE_ADMIN)) {
+      this.service.remove(event.id).subscribe(() => this._loadEvents());
+    }
   }
 
-  zusagen(event: Event) {
+  accept_count(event: Event) {
     return event.participants?.filter((p) => p.participate).length;
+  }
+
+  isAdmin() {
+    return this.authenticationService.hasRole(ROLE_ADMIN);
   }
 
   private _loadEvents() {

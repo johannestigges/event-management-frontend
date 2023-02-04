@@ -5,7 +5,7 @@ import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
 import { Event } from 'src/app/model/event';
 import { Instrument, UserStatus } from 'src/app/model/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -17,7 +17,6 @@ export class UserDetailComponent implements OnInit {
   Command = Command;
   command = Command.SHOW;
   events: Event[] = [];
-  isAdmin = false;
   instruments: Instrument[] = [];
 
   form = this.fb.group({
@@ -43,7 +42,12 @@ export class UserDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
+    this.authenticationService.hasRole(ROLE_ADMIN)
+        ? this._init()
+        : this.router.navigate(['/login']);
+  }
+
+  private _init() {
     this.service.getInstruments().subscribe(instrument => this.instruments = instrument);
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.has('command')) {
@@ -66,6 +70,7 @@ export class UserDetailComponent implements OnInit {
         ? this.form.disable()
         : this.form.enable();
     });
+
   }
 
   submitButtonText() {

@@ -1,0 +1,19 @@
+<div class="container" style="max-width: 20rem;">
+  <h2>Anmeldung</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngIf="errorMessage" class="text-bg-danger p-3 my-3">{{errorMessage}}</div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="user" class="form-label">Benutzerkennung</label>
+        <input formControlName="user" class="form-control" type="text" id="user" />
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <label for="password" class="form-label">Kennwort</label>
+        <input formControlName="password" class="form-control" type="password" id="password" />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Anmelden</button>
+  </form>
+</div>

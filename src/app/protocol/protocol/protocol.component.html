@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let prococol of protocols">
-      <td>{{ prococol.createdAt | date }}</td>
+      <td>{{ prococol.createdAt | date: 'yy.MM.yyyy HH.mm' }}&nbsp;Uhr</td>
       <td>{{ prococol.type }}</td>
       <td>{{ prococol.entityType }} {{ prococol.entityId }}</td>
       <td>{{ prococol.data }}</td>

@@ -1,37 +1,55 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, tap } from 'rxjs';
 import { ErrorService } from '../error/error.service';
+
+export const ROLE_ADMIN = 'ROLE_ADMIN';
+export const ROLE_USER = 'ROLE_USER';
+export const ROLE_GUEST = 'ROLE_GUEST';
+
+export interface LoggedInUser {
+  name?: string;
+  roles?: string[];
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  private _user$ = new BehaviorSubject<LoggedInUser | null>(null);
+
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
-  getLoggedInUser() {
-    return this.http.get<LoggedInUser>('/rest/authentication/me')
-      .pipe(catchError((error) => this.errorService.throwError("Fehler beim Lesen des angemeldeten Benutzers", error)));
+  get user$() {
+    return this._user$.asObservable();
   }
 
-  hasRole(role: string) {
-    return this.getLoggedInUser().pipe(
-      map(u => u.roles?.includes(role) || false));
+  get user(): LoggedInUser | null {
+    return this._user$.value;
   }
 
-  isAdmin() {
-    return this.hasRole("ROLE_ADMIN");
+  hasRole(role: string): boolean {
+    return this.user?.roles?.includes(role) || false;
   }
 
-  isUser() {
-    return this.hasRole("ROLE_USER");
-  }
-  isGuest() {
-    return this.hasRole("ROLE_GUEST");
-  }
-}
+  login(username: string, password: string) {
+    const headers = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
 
-export interface LoggedInUser {
-  name?: string;
-  roles?: string[];
+    return this.http.post('/login', `username=${username}&password=${password}`,
+      { headers: headers, responseType: 'text' })
+      .pipe(
+        tap(() =>
+          this._getLoggedInUser().subscribe(user => this._user$.next(user))
+        ));
+  }
+
+  logout() {
+    this._user$.next(null);
+    return this.http.get('/logout');
+  }
+
+  private _getLoggedInUser() {
+    return this.http.get<LoggedInUser>('/rest/authentication/me');
+  }
 }

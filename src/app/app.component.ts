@@ -1,22 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { ErrorService } from './error/error.service';
-import { AuthenticationService } from './services/authentication.service';
-import { ErrorData } from './error/error.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthenticationService, LoggedInUser, ROLE_ADMIN } from './services/authentication.service';
+import { NO_ERROR, ErrorService, ErrorData } from './error/error.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
 
-  isAdmin=false;
-  errorData: ErrorData = {hasError:false};
+  user: LoggedInUser | null = null;
+  private _subscriptions$: Subscription[] = [];
+  errorData: ErrorData = NO_ERROR;
 
-  constructor(private readonly authenticationService: AuthenticationService, private readonly errorService: ErrorService) { }
+  constructor(
+    private readonly authenticationService: AuthenticationService,
+    private readonly errorService: ErrorService) { }
 
   ngOnInit(): void {
-    this.authenticationService.isAdmin().subscribe(a => this.isAdmin = a);
-    this.errorService.errorChange.subscribe(errorData => this.errorData = errorData);
+    this._subscriptions$.push(this.authenticationService.user$
+      .subscribe(user => this.user = user));
+    this._subscriptions$.push(this.errorService.errorChange
+      .subscribe(errorData => this.errorData = errorData));
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions$.forEach(s => s.unsubscribe());
+  }
+
+  isAdmin() {
+    return this.user?.roles?.includes(ROLE_ADMIN);
+  }
+
+  isLoggedInUser() {
+    return this.user !== null;
   }
 }

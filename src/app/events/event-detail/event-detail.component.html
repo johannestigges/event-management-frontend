@@ -72,13 +72,13 @@
         </div>
       </div>
     </div>
-    <div *ngIf="form.enabled && nicht_zugeordnete.length" class="col">
+    <div *ngIf="form.enabled && unassigned_users.length" class="col">
       <h3>nicht zugeordnete Teilnehmer</h3>
-      <div class="btn btn-outline-primary mb-3" (click)="alleZuordnen()">
+      <div class="btn btn-outline-primary mb-3" (click)="assignAll()">
         &lt; alle zuordnen
       </div>
-      <div *ngFor="let user of nicht_zugeordnete">
-        <div (click)="zuordnen(user)" class="btn btn-outline-secondary">
+      <div *ngFor="let user of unassigned_users">
+        <div (click)="assign(user)" class="btn btn-outline-secondary">
           &lt; {{ userName(user.id) }}
         </div>
       </div>

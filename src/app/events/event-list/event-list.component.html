@@ -1,28 +1,18 @@
 <h1>Veranstaltungen</h1>
 <div class="list-group">
-  <div
-    *ngFor="let event of events"
-    class="list-group-item list-group-item-action d-flex"
-  >
-    <a
-      [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
-      class="text-decoration-none flex-fill d-flex"
-    >
+  <div *ngFor="let event of events" class="list-group-item list-group-item-action d-flex">
+    <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
+      class="text-decoration-none flex-fill d-flex">
       <div class="flex-fill">
         {{ event.name }}
       </div>
-      <div>{{ zusagen(event) }} Teilnehmer</div>
+      <div>{{ accept_count(event) }} Teilnehmer</div>
     </a>
-    <a *ngIf="isAdmin"
-      [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
-      class="btn btn-outline-secondary ms-5"
-    >
+    <a *ngIf="isAdmin()" [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
+      class="btn btn-outline-secondary ms-5">
       löschen
     </a>
   </div>
 </div>
-<a *ngIf="isAdmin"
-  [routerLink]="['/events', 'detail', { command: 'ADD' }]"
-  class="mt-5 btn btn-outline-primary"
-  >Veranstaltung hinzufügen</a
->
+<a *ngIf="isAdmin()" [routerLink]="['/events', 'detail', { command: 'ADD' }]"
+  class="mt-5 btn btn-outline-primary">Veranstaltung hinzufügen</a>
