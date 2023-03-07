@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,8 @@ import { ParticipantsComponent } from './events/participants/participants.compon
 import { ErrorComponent } from './error/error.component';
 import { ParticipateComponent } from './events/participants/participate/participate.component';
 import { LoginComponent } from './login/login.component';
+import { QrLoginComponent } from './users/user-detail/qr-login/qr-login.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,7 @@ import { LoginComponent } from './login/login.component';
     ErrorComponent,
     ParticipateComponent,
     LoginComponent,
+    QrLoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,9 @@ import { LoginComponent } from './login/login.component';
     HttpClientXsrfModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    QRCodeModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent],
 })

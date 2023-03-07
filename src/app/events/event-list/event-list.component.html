@@ -6,7 +6,7 @@
       <div class="flex-fill">
         {{ event.name }}
       </div>
-      <div>{{ accept_count(event) }} Teilnehmer</div>
+      <div class="d-none d-md-inline">{{ accept_count(event) }} Teilnehmer</div>
     </a>
     <a *ngIf="isAdmin()" [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
       class="btn btn-outline-secondary ms-5">

@@ -6,10 +6,12 @@
       {{ user.vorname }}
       {{ user.nachname }}
     </a>
-    <div class="mx-2">{{user.instrument?.instrument}}</div>
-    <div class="mx-2"> {{user.status}}</div>
-    <a *ngIf="isAdmin()" [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
-      class="btn btn-outline-secondary mx-2">löschen</a>
+    <div class="mx-2 d-none d-sm-inline">{{user.instrument?.instrument}}</div>
+    <div class="mx-2 d-none d-sm-inline"> {{user.status}}</div>
+    <a *ngIf="isAdmin()" [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]">
+      <fa-icon class="d-sm-none" [icon]="faXmarkCircle"></fa-icon>
+      <span class="d-none d-md-inline btn btn-outline-secondary mx-2">löschen</span>
+    </a>
   </div>
 </div>
 <a *ngIf="isAdmin()" [routerLink]="['/users', 'detail', { command: 'ADD' }]" 

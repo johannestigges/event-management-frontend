@@ -5,11 +5,21 @@ export interface User {
   nachname: string;
   status: UserStatus;
   instrument?: Instrument;
+  username?: string;
+  password?: string;
+  role?: UserRole;
 }
 
 export enum UserStatus {
   Mitglied,
-  Gast,
+  Gast
+}
+
+export enum UserRole {
+    Gast,
+    Nutzer,
+    Satzfuehrer,
+    Administrator
 }
 
 export interface Instrument {

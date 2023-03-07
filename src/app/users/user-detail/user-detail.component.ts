@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
+import { User } from 'src/app/model/user';
 import { Event } from 'src/app/model/event';
-import { Instrument, UserStatus } from 'src/app/model/user';
+import { Instrument, UserStatus, UserRole } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
+import { QrLoginComponent } from './qr-login/qr-login.component';
 
 @Component({
   selector: 'evm-user-detail',
@@ -18,6 +21,7 @@ export class UserDetailComponent implements OnInit {
   command = Command.SHOW;
   events: Event[] = [];
   instruments: Instrument[] = [];
+  qrdata = '';
 
   form = this.fb.group({
     id: [''],
@@ -25,26 +29,30 @@ export class UserDetailComponent implements OnInit {
     vorname: ['', Validators.required],
     nachname: ['', Validators.required],
     status: ['', Validators.required],
-    instrument: ['']
+    instrument: [''],
+    username: [''],
+    role: ['']
   });
 
   userStatus: string[] = Object.values(UserStatus).filter(
-    (value) => typeof value === 'string'
-  ) as string[];
+    (value) => typeof value === 'string') as string[];
+  userRoles: string[] = Object.values(UserRole).filter(
+    (value) => typeof value === 'string') as string[];
 
   constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private service: UserService,
-    private eventService: EventService,
-    private authenticationService: AuthenticationService,
-    private fb: FormBuilder
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly service: UserService,
+    private readonly eventService: EventService,
+    private readonly authenticationService: AuthenticationService,
+    private readonly fb: FormBuilder,
+    private readonly dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.authenticationService.hasRole(ROLE_ADMIN)
-        ? this._init()
-        : this.router.navigate(['/login']);
+      ? this._init()
+      : this.router.navigate(['/login']);
   }
 
   private _init() {
@@ -63,6 +71,8 @@ export class UserDetailComponent implements OnInit {
           this._get('nachname').setValue(user.nachname);
           this._get('status').setValue(user.status);
           this._get('instrument').setValue(user.instrument?.id);
+          this._get('username').setValue(user.username);
+          this._get('role').setValue(user.role);
           this._addEvents(Number(user.id));
         });
       }
@@ -130,6 +140,18 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
+  onShowQrCode() {
+    const config = new MatDialogConfig();
+    config.disableClose = true;
+    config.width = '300px';
+    config.data = {
+      username: 'admin',
+      password: 'knofensa'
+    };
+    this.dialog.open(QrLoginComponent, config);
+  }
+
+
   participate(event: Event) {
     const user_id = Number(this._get('id').value);
     return event.participants?.find((p) => p.user_id === user_id)?.participate;
@@ -157,13 +179,21 @@ export class UserDetailComponent implements OnInit {
   }
 
   private _toUser() {
-    return {
+    const user:User = {
       id: this._get('id').value,
       version: this._get('version').value,
       vorname: this._get('vorname').value,
       nachname: this._get('nachname').value,
       status: this._get('status').value,
-      instrument: this._getInstrument()
+      instrument: this._getInstrument(),
+    };
+    if (this._get('username').value) {
+      user.username = this._get('username').value.toString();
     }
+    if (this._get('role').value) {
+      user.role = this._get('role').value.toString();
+    }
+    console.log('User ',user);
+    return user;
   }
 }

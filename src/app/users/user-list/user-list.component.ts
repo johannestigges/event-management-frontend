@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faXmarkCircle } from '@fortawesome/free-regular-svg-icons';
 import { User } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
@@ -9,6 +10,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
+  readonly faXmarkCircle = faXmarkCircle;
+
   userList: User[] = [];
 
   constructor(
