@@ -145,8 +145,8 @@ export class UserDetailComponent implements OnInit {
     config.disableClose = true;
     config.width = '300px';
     config.data = {
-      username: 'admin',
-      password: 'knofensa'
+      username: this._get('username'),
+      password: 'my generated password'
     };
     this.dialog.open(QrLoginComponent, config);
   }
