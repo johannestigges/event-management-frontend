@@ -47,7 +47,7 @@ export class ParticipateComponent implements OnInit {
       }
       this.events = this.events.filter(e => e.id !== event.id);
       if (this.events.length === 0) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/participants']);
       }
     });
   }
