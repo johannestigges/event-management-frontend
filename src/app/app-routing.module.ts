@@ -5,7 +5,6 @@ import { EventListComponent } from './events/event-list/event-list.component';
 import { ParticipantsComponent } from './events/participants/participants.component';
 import { ParticipateComponent } from './events/participants/participate/participate.component';
 import { LoginComponent } from './login/login.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProtocolComponent } from './protocol/protocol/protocol.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserListComponent } from './users/user-list/user-list.component';
@@ -20,7 +19,7 @@ const routes: Routes = [
   { path: 'protocol', component: ProtocolComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/login', pathMatch:'full' },
 ];
 
 @NgModule({
