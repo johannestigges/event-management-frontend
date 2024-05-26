@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'participate', component: ParticipateComponent },
   { path: 'protocol', component: ProtocolComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/participants', pathMatch: 'full' },
   { path: '**', redirectTo: '/login', pathMatch:'full' },
 ];
 
