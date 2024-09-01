@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,12 +30,10 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    HttpClientXsrfModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

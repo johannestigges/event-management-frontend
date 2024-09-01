@@ -5,8 +5,7 @@ import { NO_ERROR, ErrorService, ErrorData } from './error/error.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -27,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscriptions$.forEach(s => s.unsubscribe());
+    this._subscriptions$ = [];
   }
 
   isAdmin() {

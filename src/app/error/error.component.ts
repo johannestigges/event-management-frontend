@@ -4,8 +4,7 @@ import { ErrorData } from './error.service';
 
 @Component({
   selector: 'evm-error',
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
+  templateUrl: './error.component.html'
 })
 export class ErrorComponent implements OnChanges {
   readonly REMOVE_ERROR_AFTER = 10_000;
