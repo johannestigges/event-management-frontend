@@ -5,11 +5,10 @@ import { ProtocolService } from '../protocol.service';
 @Component({
   selector: 'evm-protocol',
   templateUrl: './protocol.component.html',
-  styleUrls: ['./protocol.component.scss'],
 })
 export class ProtocolComponent implements OnInit {
   protocols: Protocol[] = [];
-  constructor(private protocolService: ProtocolService) {}
+  constructor(private protocolService: ProtocolService) { }
 
   ngOnInit(): void {
     this.protocolService

@@ -5,23 +5,22 @@ import { EventService } from '../event.service';
 
 @Component({
   selector: 'evm-event-list',
-  templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss'],
+  templateUrl: './event-list.component.html'
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
 
   constructor(
-    private readonly service: EventService,
+    private readonly eventService: EventService,
     private readonly authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-      this._loadEvents();
+    this._loadEvents();
   }
 
   onDelete(event: Event) {
     if (this.authenticationService.hasRole(ROLE_ADMIN)) {
-      this.service.remove(event.id).subscribe(() => this._loadEvents());
+      this.eventService.remove(event.id).subscribe(() => this._loadEvents());
     }
   }
 
@@ -34,6 +33,6 @@ export class EventListComponent implements OnInit {
   }
 
   private _loadEvents() {
-    this.service.getAll().subscribe((events) => (this.events = events));
+    this.eventService.getAll().subscribe((events) => (this.events = events));
   }
 }

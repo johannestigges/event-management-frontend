@@ -5,22 +5,22 @@ import { UserService } from '../user.service';
 
 @Component({
   selector: 'evm-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
+  templateUrl: './user-list.component.html'
 })
 export class UserListComponent implements OnInit {
   userList: User[] = [];
 
   constructor(
-    private readonly service: UserService,
-    private readonly authenticationService: AuthenticationService) { }
+    private readonly userService: UserService,
+    private readonly authenticationService: AuthenticationService) {
+  }
 
   ngOnInit() {
-      this._loadUsers();
+    this._loadUsers();
   }
 
   onDelete(user: User) {
-    this.service.remove(user.id).subscribe(() => this._loadUsers());
+    this.userService.remove(user.id).subscribe(() => this._loadUsers());
   }
 
   isAdmin() {
@@ -28,6 +28,6 @@ export class UserListComponent implements OnInit {
   }
 
   private _loadUsers() {
-    this.service.getAll().subscribe((userList) => (this.userList = userList));
+    this.userService.getAll().subscribe((userList) => (this.userList = userList));
   }
 }

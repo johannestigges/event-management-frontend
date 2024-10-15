@@ -10,8 +10,7 @@ import { UserService } from '../user.service';
 
 @Component({
   selector: 'evm-user-detail',
-  templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss'],
+  templateUrl: './user-detail.component.html'
 })
 export class UserDetailComponent implements OnInit {
   Command = Command;
@@ -35,7 +34,7 @@ export class UserDetailComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private service: UserService,
+    private userService: UserService,
     private eventService: EventService,
     private authenticationService: AuthenticationService,
     private fb: FormBuilder
@@ -48,7 +47,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   private _init() {
-    this.service.getInstruments().subscribe(instrument => this.instruments = instrument);
+    this.userService.getInstruments().subscribe(instrument => this.instruments = instrument);
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.has('command')) {
         this.command = Command[params.get('command') as keyof typeof Command];
@@ -56,7 +55,7 @@ export class UserDetailComponent implements OnInit {
       if (this.command === Command.ADD) {
         this._get('status').setValue(this.userStatus[0]);
       } else {
-        this.service.getOne(Number(params.get('id'))).subscribe((user) => {
+        this.userService.getOne(Number(params.get('id'))).subscribe((user) => {
           this._get('id').setValue(user.id);
           this._get('version').setValue(user.version);
           this._get('vorname').setValue(user.vorname);
@@ -103,20 +102,20 @@ export class UserDetailComponent implements OnInit {
     switch (this.command) {
       case Command.ADD:
         if (this.form.valid) {
-          this.service
+          this.userService
             .add(this._toUser())
             .subscribe(() => this.router.navigate(['/users']));
         }
         break;
       case Command.MODIFY:
         if (this.form.valid) {
-          this.service
+          this.userService
             .update(this._toUser())
             .subscribe(() => this.router.navigate(['/users']));
         }
         break;
       case Command.DELETE:
-        this.service
+        this.userService
           .remove(Number(this._get('id').value))
           .subscribe(() => this.router.navigate(['/users']));
         break;

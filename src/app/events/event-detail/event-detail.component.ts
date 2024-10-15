@@ -10,8 +10,7 @@ import { EventService } from '../event.service';
 
 @Component({
   selector: 'evm-event-detail',
-  templateUrl: './event-detail.component.html',
-  styleUrls: ['./event-detail.component.scss'],
+  templateUrl: './event-detail.component.html'
 })
 export class EventDetailComponent implements OnInit {
   Command = Command;
@@ -32,7 +31,7 @@ export class EventDetailComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly service: EventService,
+    private readonly eventService: EventService,
     private readonly userService: UserService,
     private readonly authenticationService: AuthenticationService,
     private readonly fb: FormBuilder
@@ -53,7 +52,7 @@ export class EventDetailComponent implements OnInit {
           this.command = Command[params.get('command') as keyof typeof Command];
         }
         if (!this.isCommand(Command.ADD)) {
-          this.service.getOne(Number(params.get('id'))).subscribe((event) => {
+          this.eventService.getOne(Number(params.get('id'))).subscribe((event) => {
             this._get('id').setValue(event.id);
             this._get('version').setValue(event.version);
             this._get('name').setValue(event.name);
@@ -99,7 +98,7 @@ export class EventDetailComponent implements OnInit {
     switch (this.command) {
       case Command.ADD:
         if (this.form.valid) {
-          this.service.add({
+          this.eventService.add({
             id: this._get('id').value,
             version: this._get('version').value,
             name: this._get('name').value,
@@ -111,7 +110,7 @@ export class EventDetailComponent implements OnInit {
         break;
       case Command.MODIFY:
         if (this.form.valid) {
-          this.service.update({
+          this.eventService.update({
             id: this._get('id').value,
             version: this._get('version').value,
             name: this._get('name').value,
@@ -122,7 +121,7 @@ export class EventDetailComponent implements OnInit {
         }
         break;
       case Command.DELETE:
-        this.service
+        this.eventService
           .remove(Number(this._get('id').value))
           .subscribe(() => this.router.navigate(['/events']));
         break;
