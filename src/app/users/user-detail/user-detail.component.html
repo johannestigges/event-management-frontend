@@ -18,14 +18,14 @@
     <div class="col">
       <label for="instrument" class="form-label">Instrument</label>
       <select class="form-select" formControlName="instrument">
-        <option *ngFor="let instrument of instruments" [ngValue]="instrument.id">{{instrument.gruppe}}
+        <option *ngFor="let instrument of instruments" [value]="instrument.id">{{instrument.gruppe}}
           {{instrument.instrument}}</option>
       </select>
     </div>
     <div class="col">
       <label for="status" class="form-label">Status</label>
       <select class="form-select" formControlName="status">
-        <option *ngFor="let status of userStatus" [ngValue]="status">{{ status }}</option>
+        <option *ngFor="let status of userStatus" [value]="status">{{ status }}</option>
       </select>
     </div>
   </div>

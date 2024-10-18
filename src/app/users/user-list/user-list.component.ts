@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'evm-user-list',
-  templateUrl: './user-list.component.html'
+  templateUrl: './user-list.component.html',
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink]
 })
 export class UserListComponent implements OnInit {
   userList: User[] = [];

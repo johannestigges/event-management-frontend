@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Command } from 'src/app/model/command';
 import { Participant } from 'src/app/model/participant';
 import { User } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/users/user.service';
 import { EventService } from '../event.service';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'evm-event-detail',
-  templateUrl: './event-detail.component.html'
+  templateUrl: './event-detail.component.html',
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink, ReactiveFormsModule]
 })
 export class EventDetailComponent implements OnInit {
   Command = Command;

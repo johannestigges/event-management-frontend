@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
 import { Event } from 'src/app/model/event';
 import { Instrument, UserStatus } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'evm-user-detail',
-  templateUrl: './user-detail.component.html'
+  templateUrl: './user-detail.component.html',
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule]
 })
 export class UserDetailComponent implements OnInit {
   Command = Command;
@@ -42,8 +45,8 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit() {
     this.authenticationService.hasRole(ROLE_ADMIN)
-        ? this._init()
-        : this.router.navigate(['/login']);
+      ? this._init()
+      : this.router.navigate(['/login']);
   }
 
   private _init() {
