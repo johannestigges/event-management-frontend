@@ -1,77 +1,60 @@
-<h1>Veranstaltung {{ titleText() }}</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="row">
-    <div class="col-2 col-lg-1 mb-3">
-      <label for="id" class="form-label">Nummer</label>
-      <input
-        formControlName="id"
-        type="text"
-        class="form-control"
-        id="id"
-        readonly
-      />
+<div class="container" style="max-width: 50rem;">
+  <h1>Veranstaltung {{ titleText() }}</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-2 col-lg-1 mb-3">
+        <label for="id" class="form-label">Nummer</label>
+        <input formControlName="id" type="text" class="form-control" id="id" readonly />
+      </div>
+      <div class="col mb-3">
+        <label for="name" class="form-label">Name der Veranstaltung</label>
+        <input formControlName="name" type="text" class="form-control" id="name" />
+      </div>
     </div>
-    <div class="col mb-3">
-      <label for="name" class="form-label">Name der Veranstaltung</label>
-      <input
-        formControlName="name"
-        type="text"
-        class="form-control"
-        id="name"
-      />
+    <div class="row">
+      <div class="col mb-3">
+        <label for="start" class="form-label">Start der Veranstaltung</label>
+        <input formControlName="startAt" type="datetime-local" class="form-control" id="start" />
+      </div>
+      <div class="col mb-3">
+        <label for="end" class="form-label">Ende der Veranstaltung</label>
+        <input formControlName="endAt" type="datetime-local" class="form-control" id="end" />
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col mb-3">
-      <label for="start" class="form-label">Start der Veranstaltung</label>
-      <input
-        formControlName="start"
-        type="datetime-local"
-        class="form-control"
-        id="start"
-      />
-    </div>
-    <div class="col mb-3">
-      <label for="end" class="form-label">Ende der Veranstaltung</label>
-      <input
-        formControlName="end"
-        type="datetime-local"
-        class="form-control"
-        id="end"
-      />
-    </div>
-  </div>
-  <div class="row gx-5 mb-3">
-    <div class="col">
-      <h3>Teilnehmer</h3>
-      <div *ngFor="let participant of participants" class="row">
-        <div class="col">
-          <input
-            [disabled]="form.disabled"
-            type="checkbox"
-            class="form-check-input mx-2 col"
-            [checked]="participant.participate"
-            (click)="participate(participant)"
-          />
-          <a
-            [routerLink]="[
+    <div class="row gx-5 mb-3">
+      <div class="col">
+        <h3>Teilnehmer</h3>
+        <div *ngFor="let participant of participants" class="row">
+          <div class="col">
+            <input [disabled]="form.disabled" type="checkbox" class="form-check-input mx-2 col"
+              [checked]="participant.participate" (click)="participate(participant)" />
+            <a [routerLink]="[
               '/users/',
               'detail',
               { id: participant.user_id, command: 'SHOW' }
-            ]"
-          >
-            {{ userName(participant.user_id) }}
-          </a>
+            ]">
+              {{ userName(participant.user_id) }}
+            </a>
+          </div>
+          <div *ngIf="form.enabled" class="btn btn-outline-secondary ms-2 col-1"
+            (click)="removeParticipant(participant)">
+            x
+          </div>
         </div>
-        <div
-          *ngIf="form.enabled"
-          class="btn btn-outline-secondary ms-2 col-1"
-          (click)="removeParticipant(participant)"
-        >
-          x
+      </div>
+      <div *ngIf="form.enabled && unassigned_users.length" class="col">
+        <h3>nicht zugeordnete Teilnehmer</h3>
+        <div class="btn btn-outline-primary mb-3" (click)="assignAll()">
+          &lt; alle zuordnen
+        </div>
+        <div *ngFor="let user of unassigned_users">
+          <div (click)="assign(user)" class="btn btn-outline-secondary">
+            &lt; {{ userName(user.id) }}
+          </div>
         </div>
       </div>
     </div>
+<<<<<<< HEAD
     <div *ngIf="form.enabled && unassigned_users.length" class="col">
       <h3>nicht zugeordnete Teilnehmer</h3>
       <div class="btn btn-outline-primary mb-3" (click)="assignAll()">
@@ -89,3 +72,11 @@
   </button>
   <a routerLink="/events" class="btn btn-outline-secondary me-2 my-2">Abbrechen</a>
 </form>
+=======
+    <button type="submit" class="btn btn-outline-primary">
+      {{ submitButtonText() }}
+    </button>
+    <a routerLink="/events" class="btn btn-outline-secondary mx-2"> Abbrechen </a>
+  </form>
+</div>
+>>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0

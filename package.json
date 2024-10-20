@@ -1,16 +1,16 @@
 {
   "name": "event-management",
-  "version": "0.0.0",
+  "version": "0.9.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.spring.json -o",
     "build": "ng build --configuration production --build-optimizer",
-    "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "json-server": "json-server --watch json-server/db.json --routes json-server/routes.json"
   },
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@angular/animations": "^15.0.1",
     "@angular/common": "^15.0.1",
     "@angular/compiler": "^15.0.1",
@@ -28,18 +28,34 @@
     "rxjs": "~7.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"
+=======
+    "@angular/animations": "^18",
+    "@angular/common": "^18",
+    "@angular/compiler": "^18",
+    "@angular/core": "^18",
+    "@angular/forms": "^18",
+    "@angular/platform-browser": "^18",
+    "@angular/platform-browser-dynamic": "^18",
+    "@angular/router": "^18",
+    "@fortawesome/angular-fontawesome": "^0.15.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-regular-svg-icons": "^6.5.2",
+    "rxjs": "^7.8.1",
+    "tslib": "^2.5.3",
+    "zone.js": "^0.14.2"
+>>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.0.1",
-    "@angular/cli": "~15.0.1",
-    "@angular/compiler-cli": "^15.0.1",
-    "@types/jasmine": "~4.3.0",
-    "jasmine-core": "~4.5.0",
+    "@angular-devkit/build-angular": "^18.2.2",
+    "@angular/cli": "^18.2.2",
+    "@angular/compiler-cli": "^18",
+    "@types/jasmine": "~5.1.4",
+    "jasmine-core": "^5.1.2",
     "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
+    "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0",
-    "typescript": "~4.8.4"
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "^5.2"
   }
 }

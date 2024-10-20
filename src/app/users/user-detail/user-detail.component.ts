@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+=======
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+>>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
 import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
 import { User } from 'src/app/model/user';
@@ -9,12 +14,18 @@ import { Event } from 'src/app/model/event';
 import { Instrument, UserStatus, UserRole } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
+<<<<<<< HEAD
 import { QrLoginComponent } from './qr-login/qr-login.component';
+=======
+import { NgFor, NgIf } from '@angular/common';
+import { LOGIN_ROUTE } from 'src/app/app-routes';
+>>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
 
 @Component({
   selector: 'evm-user-detail',
   templateUrl: './user-detail.component.html',
-  styleUrls: ['./user-detail.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule]
 })
 export class UserDetailComponent implements OnInit {
   Command = Command;
@@ -40,6 +51,7 @@ export class UserDetailComponent implements OnInit {
     (value) => typeof value === 'string') as string[];
 
   constructor(
+<<<<<<< HEAD
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly service: UserService,
@@ -47,16 +59,28 @@ export class UserDetailComponent implements OnInit {
     private readonly authenticationService: AuthenticationService,
     private readonly fb: FormBuilder,
     private readonly dialog: MatDialog
+=======
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private eventService: EventService,
+    private authenticationService: AuthenticationService,
+    private fb: FormBuilder
+>>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
   ) { }
 
   ngOnInit() {
     this.authenticationService.hasRole(ROLE_ADMIN)
       ? this._init()
+<<<<<<< HEAD
       : this.router.navigate(['/login']);
+=======
+      : this.router.navigate([LOGIN_ROUTE]);
+>>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
   }
 
   private _init() {
-    this.service.getInstruments().subscribe(instrument => this.instruments = instrument);
+    this.userService.getInstruments().subscribe(instrument => this.instruments = instrument);
     this.activatedRoute.paramMap.subscribe((params) => {
       if (params.has('command')) {
         this.command = Command[params.get('command') as keyof typeof Command];
@@ -64,7 +88,7 @@ export class UserDetailComponent implements OnInit {
       if (this.command === Command.ADD) {
         this._get('status').setValue(this.userStatus[0]);
       } else {
-        this.service.getOne(Number(params.get('id'))).subscribe((user) => {
+        this.userService.getOne(Number(params.get('id'))).subscribe((user) => {
           this._get('id').setValue(user.id);
           this._get('version').setValue(user.version);
           this._get('vorname').setValue(user.vorname);
@@ -113,20 +137,20 @@ export class UserDetailComponent implements OnInit {
     switch (this.command) {
       case Command.ADD:
         if (this.form.valid) {
-          this.service
+          this.userService
             .add(this._toUser())
             .subscribe(() => this.router.navigate(['/users']));
         }
         break;
       case Command.MODIFY:
         if (this.form.valid) {
-          this.service
+          this.userService
             .update(this._toUser())
             .subscribe(() => this.router.navigate(['/users']));
         }
         break;
       case Command.DELETE:
-        this.service
+        this.userService
           .remove(Number(this._get('id').value))
           .subscribe(() => this.router.navigate(['/users']));
         break;
