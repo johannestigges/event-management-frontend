@@ -1,46 +1,48 @@
-<h1>Mitglied {{ titleText() }}</h1>
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <div class="row mb-3">
-    <div class="col-2 col-lg-1">
-      <label for="id" class="form-label">Nummer</label>
-      <input formControlName="id" type="text" class="form-control" id="id" readonly />
+<div class="container border my-4 p-4" style="max-width: 50rem;">
+  <h1>Mitglied {{ titleText() }}</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row mb-3">
+      <div class="col-2 col-lg-1">
+        <label for="id" class="form-label">Nummer</label>
+        <input formControlName="id" type="text" class="form-control" id="id" readonly />
+      </div>
+      <div class="col ">
+        <label for="vorname" class="form-label">Vorname</label>
+        <input formControlName="vorname" type="text" class="form-control" id="vorname" />
+      </div>
+      <div class="col ">
+        <label for="nachname" class="form-label">Nachname</label>
+        <input formControlName="nachname" type="text" class="form-control" id="nachname" />
+      </div>
     </div>
-    <div class="col ">
-      <label for="vorname" class="form-label">Vorname</label>
-      <input formControlName="vorname" type="text" class="form-control" id="vorname" />
+    <div class="row mb-3">
+      <div class="col">
+        <label for="instrument" class="form-label">Instrument</label>
+        <select class="form-select" formControlName="instrument">
+          <option *ngFor="let instrument of instruments" [value]="instrument.id">{{instrument.gruppe}}
+            {{instrument.instrument}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="status" class="form-label">Status</label>
+        <select class="form-select" formControlName="status">
+          <option *ngFor="let status of userStatus" [value]="status">{{ status }}</option>
+        </select>
+      </div>
     </div>
-    <div class="col ">
-      <label for="nachname" class="form-label">Nachname</label>
-      <input formControlName="nachname" type="text" class="form-control" id="nachname" />
-    </div>
-  </div>
-  <div class="row mb-3">
-    <div class="col">
-      <label for="instrument" class="form-label">Instrument</label>
-      <select class="form-select" formControlName="instrument">
-        <option *ngFor="let instrument of instruments" [value]="instrument.id">{{instrument.gruppe}}
-          {{instrument.instrument}}</option>
-      </select>
-    </div>
-    <div class="col">
-      <label for="status" class="form-label">Status</label>
-      <select class="form-select" formControlName="status">
-        <option *ngFor="let status of userStatus" [value]="status">{{ status }}</option>
-      </select>
-    </div>
-  </div>
 
-  <div *ngIf="events.length" class="mb-3">
-    <h2>Veranstaltungen</h2>
-    <div *ngFor="let event of events" class="ms-2 mb-2">
-      <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]">
-        <input type="checkbox" disabled [checked]="participate(event)" class="me-2" />
-        {{ event.name }}</a>
+    <div *ngIf="events.length" class="mb-3">
+      <h2>Veranstaltungen</h2>
+      <div *ngFor="let event of events" class="ms-2 mb-2">
+        <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]">
+          <input type="checkbox" disabled [checked]="participate(event)" class="me-2" />
+          {{ event.name }}</a>
+      </div>
     </div>
-  </div>
 
-  <button type="submit" class="btn btn-outline-primary">
-    {{ submitButtonText() }}
-  </button>
-  <a routerLink="/users" class="btn btn-outline-secondary mx-2"> Abbrechen </a>
-</form>
+    <button type="submit" class="btn btn-outline-primary">
+      {{ submitButtonText() }}
+    </button>
+    <a routerLink="/users" class="btn btn-outline-secondary mx-2"> Abbrechen </a>
+  </form>
+</div>

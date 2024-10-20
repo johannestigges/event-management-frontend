@@ -5,13 +5,15 @@
             <div *ngIf="participant.user_id === user.id" class="d-flex p-3 align-items-center">
                 <div class="d-flex flex-column p-3">
                     <h4 class="mt-3">{{event.name}}</h4>
-                    <h5> {{event.start | date: 'dd.MM.yyyy HH:mm'}} Uhr</h5>
+                    <h5> {{event.startAt | date: 'dd.MM.yyyy HH:mm'}} Uhr</h5>
                 </div>
-                <div (click)="onClick(event,true)" class="d-flex flex-column align-items-center p-3">
+                <div (click)="onClick(event,true)" class="d-flex flex-column align-items-center p-3"
+                    style="cursor: pointer;">
                     <fa-icon [icon]="faCheckCircle" class="text-success fa-3x"></fa-icon>
                     <div class="d-none d-sm-inline">Ich bin dabei!</div>
                 </div>
-                <div (click)="onClick(event,false)" class="d-flex flex-column align-items-center p-3">
+                <div (click)="onClick(event,false)" class="d-flex flex-column align-items-center p-3"
+                    style="cursor: pointer;">
                     <fa-icon [icon]="faXmarkCircle" class="text-danger fa-3x"></fa-icon>
                     <div class="d-none d-sm-inline">Ich habe keine Zeit.</div>
                 </div>

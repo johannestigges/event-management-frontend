@@ -8,6 +8,7 @@ import { Instrument, UserStatus } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
 import { NgFor, NgIf } from '@angular/common';
+import { LOGIN_ROUTE } from 'src/app/app-routes';
 
 @Component({
   selector: 'evm-user-detail',
@@ -46,7 +47,7 @@ export class UserDetailComponent implements OnInit {
   ngOnInit() {
     this.authenticationService.hasRole(ROLE_ADMIN)
       ? this._init()
-      : this.router.navigate(['/login']);
+      : this.router.navigate([LOGIN_ROUTE]);
   }
 
   private _init() {

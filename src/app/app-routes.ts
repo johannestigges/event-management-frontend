@@ -7,16 +7,18 @@ import { ParticipantsComponent } from "./events/participants/participants.compon
 import { ParticipateComponent } from "./events/participants/participate/participate.component";
 import { ProtocolComponent } from "./protocol/protocol/protocol.component";
 import { LoginComponent } from "./login/login.component";
+import { isAdminGuard, loggedInGuard } from "./guard/loggedin-guard";
 
+export const LOGIN_ROUTE = '/anmelden';
+export const ROUTE_AFTER_LOGIN = '/participants';
 export const routes: Routes = [
-    { path: 'users', component: UserListComponent },
-    { path: 'users/detail', component: UserDetailComponent },
-    { path: 'events', component: EventListComponent },
-    { path: 'events/detail', component: EventDetailComponent },
-    { path: 'participants', component: ParticipantsComponent },
-    { path: 'participate', component: ParticipateComponent },
-    { path: 'protocol', component: ProtocolComponent },
+    { path: 'users', component: UserListComponent, canActivate: [isAdminGuard] },
+    { path: 'users/detail', component: UserDetailComponent, canActivate: [isAdminGuard] },
+    { path: 'events', component: EventListComponent, canActivate: [isAdminGuard] },
+    { path: 'events/detail', component: EventDetailComponent, canActivate: [isAdminGuard] },
+    { path: 'participants', component: ParticipantsComponent, canActivate: [loggedInGuard] },
+    { path: 'participate', component: ParticipateComponent, canActivate: [loggedInGuard] },
+    { path: 'protocol', component: ProtocolComponent, canActivate: [isAdminGuard] },
     { path: 'anmelden', component: LoginComponent },
-    { path: '', redirectTo: '/participants', pathMatch: 'full' },
-    { path: '**', redirectTo: '/login', pathMatch: 'full' },
+    { path: '**', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },
 ];

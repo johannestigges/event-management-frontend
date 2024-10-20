@@ -4,15 +4,18 @@ import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authenticati
 import { EventService } from '../event.service';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSquarePlus, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'evm-event-list',
   templateUrl: './event-list.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink]
+  imports: [NgIf, NgFor, RouterLink, FontAwesomeModule]
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
+  readonly faTrashCan = faTrashCan;
 
   constructor(
     private readonly eventService: EventService,

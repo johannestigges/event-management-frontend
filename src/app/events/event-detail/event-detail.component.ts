@@ -8,6 +8,7 @@ import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authenticati
 import { UserService } from 'src/app/users/user.service';
 import { EventService } from '../event.service';
 import { NgFor, NgIf } from '@angular/common';
+import { LOGIN_ROUTE } from 'src/app/app-routes';
 
 @Component({
   selector: 'evm-event-detail',
@@ -27,8 +28,8 @@ export class EventDetailComponent implements OnInit {
     id: [''],
     version: [''],
     name: ['', Validators.required],
-    start: ['', Validators.required],
-    end: ['', Validators.required],
+    startAt: ['', Validators.required],
+    endAt: ['', Validators.required],
   });
 
   constructor(
@@ -43,7 +44,7 @@ export class EventDetailComponent implements OnInit {
   ngOnInit(): void {
     this.authenticationService.hasRole(ROLE_ADMIN)
       ? this._loadUser()
-      : this.router.navigate(['/login']);
+      : this.router.navigate([LOGIN_ROUTE]);
   }
 
   private _loadUser() {
@@ -59,8 +60,8 @@ export class EventDetailComponent implements OnInit {
             this._get('id').setValue(event.id);
             this._get('version').setValue(event.version);
             this._get('name').setValue(event.name);
-            this._get('start').setValue(event.start);
-            this._get('end').setValue(event.end);
+            this._get('startAt').setValue(event.startAt);
+            this._get('endAt').setValue(event.endAt);
             this.setParticipants(event.participants);
           });
         }
@@ -105,8 +106,8 @@ export class EventDetailComponent implements OnInit {
             id: this._get('id').value,
             version: this._get('version').value,
             name: this._get('name').value,
-            start: this._get('start').value,
-            end: this._get('end').value,
+            startAt: this._get('startAt').value,
+            endAt: this._get('endAt').value,
             participants: this.participants,
           }).subscribe(() => this.router.navigate(['/events']));
         }
@@ -117,8 +118,8 @@ export class EventDetailComponent implements OnInit {
             id: this._get('id').value,
             version: this._get('version').value,
             name: this._get('name').value,
-            start: this._get('start').value,
-            end: this._get('end').value,
+            startAt: this._get('startAt').value,
+            endAt: this._get('endAt').value,
             participants: this.participants,
           }).subscribe(() => this.router.navigate(['/events']));
         }

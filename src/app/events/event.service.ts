@@ -46,7 +46,7 @@ export class EventService {
   }
 
   update(event: Event) {
-    return this.http.put<Event>(`/rest/events/${event.id}`, event)
+    return this.http.put<Event>('/rest/events', event)
       .pipe(catchError((error) =>
         this.errorService.throwError("Fehler beim Aktualisieren der Veranstaltung", error)));
   }
