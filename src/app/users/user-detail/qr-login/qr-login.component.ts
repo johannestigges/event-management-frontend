@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { QRCodeModule } from 'angularx-qrcode';
 
 export interface QrLoginData {
   username: string;
@@ -9,7 +10,9 @@ export interface QrLoginData {
 @Component({
   selector: 'evm-qr-login',
   templateUrl: './qr-login.component.html',
-  styleUrls: ['./qr-login.component.scss']
+  styleUrls: ['./qr-login.component.scss'],
+  standalone: true,
+  imports: [QRCodeModule]
 })
 export class QrLoginComponent {
 

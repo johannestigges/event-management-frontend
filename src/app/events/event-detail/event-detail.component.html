@@ -54,29 +54,9 @@
         </div>
       </div>
     </div>
-<<<<<<< HEAD
-    <div *ngIf="form.enabled && unassigned_users.length" class="col">
-      <h3>nicht zugeordnete Teilnehmer</h3>
-      <div class="btn btn-outline-primary mb-3" (click)="assignAll()">
-        &lt; alle zuordnen
-      </div>
-      <div *ngFor="let user of unassigned_users">
-        <div (click)="assign(user)" class="btn btn-outline-secondary">
-          &lt; {{ userName(user.id) }}
-        </div>
-      </div>
-    </div>
-  </div>
-  <button type="submit" class="btn btn-outline-primary me-2 my-2">
-    {{ submitButtonText() }}
-  </button>
-  <a routerLink="/events" class="btn btn-outline-secondary me-2 my-2">Abbrechen</a>
-</form>
-=======
     <button type="submit" class="btn btn-outline-primary">
       {{ submitButtonText() }}
     </button>
     <a routerLink="/events" class="btn btn-outline-secondary mx-2"> Abbrechen </a>
   </form>
 </div>
->>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-=======
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
->>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
 import { EventService } from 'src/app/events/event.service';
 import { Command } from 'src/app/model/command';
 import { User } from 'src/app/model/user';
@@ -14,18 +9,15 @@ import { Event } from 'src/app/model/event';
 import { Instrument, UserStatus, UserRole } from 'src/app/model/user';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { UserService } from '../user.service';
-<<<<<<< HEAD
-import { QrLoginComponent } from './qr-login/qr-login.component';
-=======
 import { NgFor, NgIf } from '@angular/common';
 import { LOGIN_ROUTE } from 'src/app/app-routes';
->>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
+import { QrLoginComponent } from './qr-login/qr-login.component';
 
 @Component({
   selector: 'evm-user-detail',
   templateUrl: './user-detail.component.html',
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule]
+  imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule, QrLoginComponent]
 })
 export class UserDetailComponent implements OnInit {
   Command = Command;
@@ -51,32 +43,19 @@ export class UserDetailComponent implements OnInit {
     (value) => typeof value === 'string') as string[];
 
   constructor(
-<<<<<<< HEAD
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly service: UserService,
+    private readonly userService: UserService,
     private readonly eventService: EventService,
     private readonly authenticationService: AuthenticationService,
     private readonly fb: FormBuilder,
     private readonly dialog: MatDialog
-=======
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private userService: UserService,
-    private eventService: EventService,
-    private authenticationService: AuthenticationService,
-    private fb: FormBuilder
->>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
   ) { }
 
   ngOnInit() {
     this.authenticationService.hasRole(ROLE_ADMIN)
       ? this._init()
-<<<<<<< HEAD
-      : this.router.navigate(['/login']);
-=======
       : this.router.navigate([LOGIN_ROUTE]);
->>>>>>> 83c41e321c5591680a0903f5544b019c5fc040f0
   }
 
   private _init() {
@@ -203,7 +182,7 @@ export class UserDetailComponent implements OnInit {
   }
 
   private _toUser() {
-    const user:User = {
+    const user: User = {
       id: this._get('id').value,
       version: this._get('version').value,
       vorname: this._get('vorname').value,
@@ -217,7 +196,7 @@ export class UserDetailComponent implements OnInit {
     if (this._get('role').value) {
       user.role = this._get('role').value.toString();
     }
-    console.log('User ',user);
+    console.log('User ', user);
     return user;
   }
 }
