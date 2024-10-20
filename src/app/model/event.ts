@@ -4,7 +4,7 @@ export interface Event {
   id: number;
   version: number;
   name: string;
-  start?: Date;
-  end?: Date;
+  startAt?: Date;
+  endAt?: Date;
   participants?: Participant[];
 }

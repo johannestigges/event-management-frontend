@@ -1,4 +1,4 @@
-<div class="container" style="max-width: 20rem;">
+<div class="container border my-4 p-4" style="max-width: 20rem;">
   <h2>Anmeldung</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div *ngIf="errorMessage" class="text-bg-danger p-3 my-3">{{errorMessage}}</div>

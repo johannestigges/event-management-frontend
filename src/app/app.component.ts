@@ -2,11 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthenticationService, LoggedInUser, ROLE_ADMIN } from './services/authentication.service';
 import { NO_ERROR, ErrorService, ErrorData } from './error/error.service';
+import { NgIf } from '@angular/common';
+import { ErrorComponent } from './error/error.component';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [NgIf, ErrorComponent, RouterOutlet, RouterLink]
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -27,6 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._subscriptions$.forEach(s => s.unsubscribe());
+    this._subscriptions$ = [];
   }
 
   isAdmin() {

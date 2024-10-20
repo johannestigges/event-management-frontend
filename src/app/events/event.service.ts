@@ -42,11 +42,11 @@ export class EventService {
   add(event: Event) {
     return this.http.post<Event>('/rest/events', event)
       .pipe(catchError((error) =>
-        this.errorService.throwError("Fehler beim anlegen der Veranstaltung", error)));
+        this.errorService.throwError("Fehler beim Anlegen der Veranstaltung", error)));
   }
 
   update(event: Event) {
-    return this.http.put<Event>(`/rest/events/${event.id}`, event)
+    return this.http.put<Event>('/rest/events', event)
       .pipe(catchError((error) =>
         this.errorService.throwError("Fehler beim Aktualisieren der Veranstaltung", error)));
   }

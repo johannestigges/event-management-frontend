@@ -20,7 +20,10 @@
             <a class="nav-link" routerLink="/protocol">Historie</a>
           </li>
           <li *ngIf="isLoggedInUser()" class="nav-item">
-            <a class="nav-link ml-auto" [routerLink]="['/login']" [queryParams]="{logout:true}">Abmelden</a>
+            <a class="nav-link ml-auto" [routerLink]="['/anmelden']" [queryParams]="{logout:true}">Abmelden</a>
+          </li>
+          <li *ngIf="!isLoggedInUser()" class="nav-item">
+            <a class="nav-link ml-auto" [routerLink]="['/anmelden']">Anmelden</a>
           </li>
         </ul>
       </div>

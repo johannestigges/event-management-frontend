@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { NgIf } from '@angular/common';
+import { ROUTE_AFTER_LOGIN } from '../app-routes';
 
 @Component({
   selector: 'evm-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  standalone: true,
+  imports: [NgIf, ReactiveFormsModule]
 })
 export class LoginComponent implements OnInit {
 
@@ -29,7 +33,7 @@ export class LoginComponent implements OnInit {
       const pw: string | null = params.get('password');
       if (username && pw) {
         this.service.login(username, pw).subscribe(
-          () => this.router.navigateByUrl('/participants'))
+          () => this.router.navigateByUrl(ROUTE_AFTER_LOGIN))
       }
       if (params.get('logout')) {
         this.service.logout();
@@ -39,9 +43,12 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
+      this.errorMessage = '';
       this.service.login(this.form.controls.user.value!, this.form.controls.password.value!)
         .subscribe({
-          next: () => this.router.navigate(['/participants']),
+          next: () => {
+            this.router.navigateByUrl(ROUTE_AFTER_LOGIN);
+          },
           error: (error) =>
             this.errorMessage = error.status === 401
               ? 'ungültige Anmeldedaten'

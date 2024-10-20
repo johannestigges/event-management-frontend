@@ -2,26 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { Event } from 'src/app/model/event';
 import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
 import { EventService } from '../event.service';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faSquarePlus, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'evm-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss'],
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink, FontAwesomeModule]
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
+  readonly faTrashCan = faTrashCan;
 
   constructor(
-    private readonly service: EventService,
+    private readonly eventService: EventService,
     private readonly authenticationService: AuthenticationService) { }
 
   ngOnInit() {
-      this._loadEvents();
+    this._loadEvents();
   }
 
   onDelete(event: Event) {
     if (this.authenticationService.hasRole(ROLE_ADMIN)) {
-      this.service.remove(event.id).subscribe(() => this._loadEvents());
+      this.eventService.remove(event.id).subscribe(() => this._loadEvents());
     }
   }
 
@@ -34,6 +40,6 @@ export class EventListComponent implements OnInit {
   }
 
   private _loadEvents() {
-    this.service.getAll().subscribe((events) => (this.events = events));
+    this.eventService.getAll().subscribe((events) => (this.events = events));
   }
 }

@@ -6,10 +6,14 @@ import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/users/user.service';
 import { EventService } from '../../event.service';
 import { faCheckCircle, faXmarkCircle } from '@fortawesome/free-regular-svg-icons';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'evm-participate',
-  templateUrl: './participate.component.html'
+  templateUrl: './participate.component.html',
+  standalone: true,
+  imports: [NgIf, NgFor, FontAwesomeModule, DatePipe]
 })
 export class ParticipateComponent implements OnInit {
   readonly faCheckCircle = faCheckCircle;

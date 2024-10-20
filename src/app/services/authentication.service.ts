@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { ErrorService } from '../error/error.service';
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';

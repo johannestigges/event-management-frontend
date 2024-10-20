@@ -37,7 +37,7 @@ export class ErrorService {
 
   throwError(message: string, error: any) {
     if (error.status === 401) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/anmelden']);
     }
     this.setError(message, error.message, JSON.stringify(error));
     return throwError(() => new Error(error.message));
