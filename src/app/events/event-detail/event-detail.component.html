@@ -36,21 +36,21 @@
               {{ userName(participant.user_id) }}
             </a>
           </div>
-          <div *ngIf="form.enabled" class="btn btn-outline-secondary ms-2 col-1"
+          <button *ngIf="form.enabled" class="btn btn-outline-secondary ms-2 col-1"
             (click)="removeParticipant(participant)">
             x
-          </div>
+          </button>
         </div>
       </div>
       <div *ngIf="form.enabled && unassigned_users.length" class="col">
         <h3>nicht zugeordnete Teilnehmer</h3>
-        <div class="btn btn-outline-primary mb-3" (click)="assignAll()">
+        <button class="btn btn-outline-primary mb-3" (click)="assignAll()">
           &lt; alle zuordnen
-        </div>
+        </button>
         <div *ngFor="let user of unassigned_users">
-          <div (click)="assign(user)" class="btn btn-outline-secondary">
+          <button (click)="assign(user)" class="btn btn-outline-secondary">
             &lt; {{ userName(user.id) }}
-          </div>
+          </button>
         </div>
       </div>
     </div>

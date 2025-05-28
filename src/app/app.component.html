@@ -7,23 +7,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li *ngIf="isLoggedInUser()" class="nav-item">
+          <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
             <a class="nav-link" routerLink="/participants">Teilnahmelisten</a>
           </li>
-          <li *ngIf="isAdmin()" class="nav-item">
+          <li *ngIf="authenticationService.isAdmin()" class="nav-item">
             <a class="nav-link" routerLink="/users">Mitglieder</a>
           </li>
-          <li *ngIf="isAdmin()" class="nav-item">
+          <li *ngIf="authenticationService.isAdmin()" class="nav-item">
             <a class="nav-link" routerLink="/events">Veranstaltungen</a>
           </li>
-          <li *ngIf="isAdmin()" class="nav-item">
+          <li *ngIf="authenticationService.isAdmin()" class="nav-item">
             <a class="nav-link" routerLink="/protocol">Historie</a>
           </li>
-          <li *ngIf="isLoggedInUser()" class="nav-item">
+          <li *ngIf="authenticationService.isLoggedIn()" class="nav-item">
             <a class="nav-link ml-auto" [routerLink]="['/anmelden']" [queryParams]="{logout:true}">Abmelden</a>
-          </li>
-          <li *ngIf="!isLoggedInUser()" class="nav-item">
-            <a class="nav-link ml-auto" [routerLink]="['/anmelden']">Anmelden</a>
           </li>
         </ul>
       </div>
