@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { Injectable, signal } from '@angular/core';
 import { ErrorService } from '../error/error.service';
+import { catchError, tap } from 'rxjs';
 
 export const ROLE_ADMIN = 'ROLE_ADMIN';
 export const ROLE_USER = 'ROLE_USER';
@@ -16,40 +16,53 @@ export interface LoggedInUser {
   providedIn: 'root'
 })
 export class AuthenticationService {
-
-  private _user$ = new BehaviorSubject<LoggedInUser | null>(null);
-
   constructor(private http: HttpClient, private errorService: ErrorService) { }
 
-  get user$() {
-    return this._user$.asObservable();
-  }
+  user = signal<LoggedInUser | null>(null);
+  isLoggedIn = signal(false);
+  isAdmin = signal(false);
 
-  get user(): LoggedInUser | null {
-    return this._user$.value;
-  }
-
-  hasRole(role: string): boolean {
-    return this.user?.roles?.includes(role) || false;
+  static hasRole(user: LoggedInUser, role: string): boolean {
+    return user?.roles?.includes(role) || false;
   }
 
   login(username: string, password: string) {
     const headers = new HttpHeaders({ 'content-type': 'application/x-www-form-urlencoded' });
 
-    return this.http.post('/login', `username=${username}&password=${password}`,
+    return this.http.post('/rest/login', `username=${username}&password=${password}`,
       { headers: headers, responseType: 'text' })
       .pipe(
-        tap(() =>
-          this._getLoggedInUser().subscribe(user => this._user$.next(user))
-        ));
+        tap(user => {
+          this.isLoggedIn.set(user !== null);
+          //  this.isAdmin.set(this.isLoggedIn() && AuthenticationService.hasRole(user, ROLE_ADMIN));
+        }),
+        catchError((error) => this.errorService.throwError("Fehler beim Anmelden", error))
+      );
   }
 
   logout() {
-    this._user$.next(null);
-    return this.http.get('/logout');
+    return this.http.post('/rest/logout', '')
+      .pipe(tap(() => {
+        console.log('logout');
+        this.user.set(null);
+        this.isLoggedIn.set(false);
+        this.isAdmin.set(false);
+      }),
+        catchError((error) => this.errorService.throwError("Fehler beim Abmelden", error))
+      );
   }
 
-  private _getLoggedInUser() {
-    return this.http.get<LoggedInUser>('/rest/authentication/me');
+  getLoggedInUser() {
+    return this.http.get<LoggedInUser>('/rest/authentication/me')
+      .pipe(tap(user => {
+        this.isLoggedIn.set(AuthenticationService.checkIsLoggedIn(user));
+        this.isAdmin.set(this.isLoggedIn() && AuthenticationService.hasRole(user, ROLE_ADMIN))
+      }),
+        catchError((error) => this.errorService.throwError("Fehler beim Lesen der Anmeldedaten", error))
+      );
+  }
+
+  static checkIsLoggedIn(user: LoggedInUser) {
+    return user?.name !== null && user.name !== '';
   }
 }

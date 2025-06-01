@@ -1,14 +1,13 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { faEye, faEyeSlash, faFrown } from '@fortawesome/free-regular-svg-icons';
-import { ErrorData } from './error.service';
-import { NgFor, NgIf } from '@angular/common';
-import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import {Component, Input, OnChanges} from '@angular/core';
+import {faEye, faEyeSlash, faFrown} from '@fortawesome/free-regular-svg-icons';
+import {ErrorData} from './error.service';
+
+import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: 'evm-error',
-  templateUrl: './error.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, FaIconComponent]
+    selector: 'evm-error',
+    templateUrl: './error.component.html',
+    imports: [FaIconComponent]
 })
 export class ErrorComponent implements OnChanges {
   readonly REMOVE_ERROR_AFTER = 10_000;
@@ -22,9 +21,9 @@ export class ErrorComponent implements OnChanges {
 
   errorList: ErrorData[] = [];
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.errorData) {
-      if (this.errorData.hasError === false) {
+      if (!this.errorData.hasError) {
         this.errorList = [];
       } else {
         this.errorData.occured_at = Date.now();

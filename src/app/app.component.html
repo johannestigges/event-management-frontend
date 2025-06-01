@@ -1,30 +1,38 @@
 <div class="m-3">
   <nav class="navbar navbar-expand-sm bg-light">
     <div class="container-fluid">
+      <img src="assets/logo152_50.png" alt="DaCapo Logo" class="me-3">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li *ngIf="isLoggedInUser()" class="nav-item">
-            <a class="nav-link" routerLink="/participants">Teilnahmelisten</a>
-          </li>
-          <li *ngIf="isAdmin()" class="nav-item">
-            <a class="nav-link" routerLink="/users">Mitglieder</a>
-          </li>
-          <li *ngIf="isAdmin()" class="nav-item">
-            <a class="nav-link" routerLink="/events">Veranstaltungen</a>
-          </li>
-          <li *ngIf="isAdmin()" class="nav-item">
-            <a class="nav-link" routerLink="/protocol">Historie</a>
-          </li>
-          <li *ngIf="isLoggedInUser()" class="nav-item">
-            <a class="nav-link ml-auto" [routerLink]="['/anmelden']" [queryParams]="{logout:true}">Abmelden</a>
-          </li>
-          <li *ngIf="!isLoggedInUser()" class="nav-item">
-            <a class="nav-link ml-auto" [routerLink]="['/anmelden']">Anmelden</a>
-          </li>
+          @if (authenticationService.isLoggedIn()) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/participants">Teilnahmelisten</a>
+            </li>
+          }
+          @if (authenticationService.isAdmin()) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/users">Mitglieder</a>
+            </li>
+          }
+          @if (authenticationService.isAdmin()) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/events">Veranstaltungen</a>
+            </li>
+          }
+          @if (authenticationService.isAdmin()) {
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/protocol">Historie</a>
+            </li>
+          }
+          @if (authenticationService.isLoggedIn()) {
+            <li class="nav-item">
+              <a class="nav-link ml-auto" [routerLink]="['/anmelden']" [queryParams]="{logout:true}">Abmelden</a>
+            </li>
+          }
         </ul>
       </div>
     </div>

@@ -19,26 +19,34 @@
       <div class="col">
         <label for="instrument" class="form-label">Instrument</label>
         <select class="form-select" formControlName="instrument">
-          <option *ngFor="let instrument of instruments" [value]="instrument.id">{{instrument.gruppe}}
+          @for (instrument of instruments; track instrument) {
+            <option [value]="instrument.id">{{instrument.gruppe}}
             {{instrument.instrument}}</option>
+          }
         </select>
       </div>
       <div class="col">
         <label for="status" class="form-label">Status</label>
         <select class="form-select" formControlName="status">
-          <option *ngFor="let status of userStatus" [value]="status">{{ status }}</option>
+          @for (status of userStatus; track status) {
+            <option [value]="status">{{ status }}</option>
+          }
         </select>
       </div>
     </div>
 
-    <div *ngIf="events.length" class="mb-3">
-      <h2>Veranstaltungen</h2>
-      <div *ngFor="let event of events" class="ms-2 mb-2">
-        <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]">
-          <input type="checkbox" disabled [checked]="participate(event)" class="me-2" />
-          {{ event.name }}</a>
+    @if (events.length) {
+      <div class="mb-3">
+        <h2>Veranstaltungen</h2>
+        @for (event of events; track event) {
+          <div class="ms-2 mb-2">
+            <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]">
+              <input type="checkbox" disabled [checked]="participate(event)" class="me-2" />
+            {{ event.name }}</a>
+          </div>
+        }
       </div>
-    </div>
+    }
 
     <button type="submit" class="btn btn-outline-primary">
       {{ submitButtonText() }}
