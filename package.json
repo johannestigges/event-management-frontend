@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.spring.json -o",
-    "build": "ng build --configuration production --build-optimizer",
+    "build": "ng build --configuration production --optimization=true",
     "test": "jest",
     "json-server": "json-server --watch json-server/db.json --routes json-server/routes.json",
     "lint": "ng lint"
