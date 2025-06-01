@@ -6,10 +6,9 @@ import {NgIf} from '@angular/common';
 import {LOGIN_ROUTE, ROUTE_AFTER_LOGIN} from '../app-routes';
 
 @Component({
-  selector: 'evm-login',
-  templateUrl: './login.component.html',
-  standalone: true,
-  imports: [NgIf, ReactiveFormsModule]
+    selector: 'evm-login',
+    templateUrl: './login.component.html',
+    imports: [NgIf, ReactiveFormsModule]
 })
 export class LoginComponent implements OnInit {
 

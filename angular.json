@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "event-management:build:production"
+              "buildTarget": "event-management:build:production"
             },
             "development": {
-              "browserTarget": "event-management:build:development"
+              "buildTarget": "event-management:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "event-management:build"
+            "buildTarget": "event-management:build"
           }
         },
         "lint": {

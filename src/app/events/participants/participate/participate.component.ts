@@ -10,10 +10,9 @@ import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: 'evm-participate',
-  templateUrl: './participate.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, FontAwesomeModule, DatePipe]
+    selector: 'evm-participate',
+    templateUrl: './participate.component.html',
+    imports: [NgIf, NgFor, FontAwesomeModule, DatePipe]
 })
 export class ParticipateComponent implements OnInit {
   readonly faCheckCircle = faCheckCircle;

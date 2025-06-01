@@ -9,10 +9,9 @@ import {EventService} from '../event.service';
 import {NgFor, NgIf} from '@angular/common';
 
 @Component({
-  selector: 'evm-event-detail',
-  templateUrl: './event-detail.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, RouterLink, ReactiveFormsModule]
+    selector: 'evm-event-detail',
+    templateUrl: './event-detail.component.html',
+    imports: [NgIf, NgFor, RouterLink, ReactiveFormsModule]
 })
 export class EventDetailComponent implements OnInit {
   Command = Command;

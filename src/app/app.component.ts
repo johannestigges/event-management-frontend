@@ -8,10 +8,9 @@ import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {LOGIN_ROUTE} from './app-routes';
 
 @Component({
-  selector: 'evm-root',
-  templateUrl: './app.component.html',
-  standalone: true,
-  imports: [NgIf, ErrorComponent, RouterOutlet, RouterLink]
+    selector: 'evm-root',
+    templateUrl: './app.component.html',
+    imports: [NgIf, ErrorComponent, RouterOutlet, RouterLink]
 })
 export class AppComponent implements OnInit, OnDestroy {
 

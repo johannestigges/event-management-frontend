@@ -9,10 +9,9 @@ import {UserService} from '../user.service';
 import {NgFor, NgIf} from '@angular/common';
 
 @Component({
-  selector: 'evm-user-detail',
-  templateUrl: './user-detail.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule]
+    selector: 'evm-user-detail',
+    templateUrl: './user-detail.component.html',
+    imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule]
 })
 export class UserDetailComponent implements OnInit {
   Command = Command;

@@ -7,10 +7,9 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'evm-user-list',
-  templateUrl: './user-list.component.html',
-  standalone: true,
-  imports: [NgFor, RouterLink, FontAwesomeModule]
+    selector: 'evm-user-list',
+    templateUrl: './user-list.component.html',
+    imports: [NgFor, RouterLink, FontAwesomeModule]
 })
 export class UserListComponent implements OnInit {
   userList: User[] = [];

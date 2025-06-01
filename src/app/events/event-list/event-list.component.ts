@@ -7,10 +7,9 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'evm-event-list',
-  templateUrl: './event-list.component.html',
-  standalone: true,
-  imports: [NgFor, RouterLink, FontAwesomeModule]
+    selector: 'evm-event-list',
+    templateUrl: './event-list.component.html',
+    imports: [NgFor, RouterLink, FontAwesomeModule]
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];

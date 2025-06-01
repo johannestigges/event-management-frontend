@@ -4,10 +4,9 @@ import { ProtocolService } from '../protocol.service';
 import { DatePipe, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'evm-protocol',
-  templateUrl: './protocol.component.html',
-  standalone: true,
-  imports: [NgFor, DatePipe]
+    selector: 'evm-protocol',
+    templateUrl: './protocol.component.html',
+    imports: [NgFor, DatePipe]
 })
 export class ProtocolComponent implements OnInit {
   protocols: Protocol[] = [];

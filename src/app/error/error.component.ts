@@ -5,10 +5,9 @@ import {NgFor, NgIf} from '@angular/common';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 
 @Component({
-  selector: 'evm-error',
-  templateUrl: './error.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, FaIconComponent]
+    selector: 'evm-error',
+    templateUrl: './error.component.html',
+    imports: [NgIf, NgFor, FaIconComponent]
 })
 export class ErrorComponent implements OnChanges {
   readonly REMOVE_ERROR_AFTER = 10_000;
