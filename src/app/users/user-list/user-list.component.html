@@ -1,20 +1,21 @@
 <div class="container" style="max-width: 50rem;">
   <h1>Mitglieder</h1>
   <div class="list-group">
-    <div *ngFor="let user of userList" class="list-group-item list-group-item-action d-inline-flex">
-      <a [routerLink]="['/users', 'detail', { id: user.id, command: 'SHOW' }]" class="text-decoration-none flex-fill">
-        {{ user.vorname }}
-        {{ user.nachname }}
-      </a>
-      <div class="mx-2">{{user.instrument?.instrument}}</div>
-      <div class="mx-2"> {{user.status}}</div>
-      <a *ngIf="isAdmin()" [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]"
-        class="btn btn-outline-secondary mx-2">
-        <fa-icon [icon]="faTrashCan"></fa-icon>
-        <span class="d-none d-md-inline ms-3">löschen</span>
-      </a>
-    </div>
+    @for (user of userList; track user) {
+      <div class="list-group-item list-group-item-action d-inline-flex my-1">
+        <a [routerLink]="['/users', 'detail', { id: user.id, command: 'SHOW' }]" class="text-decoration-none flex-fill">
+          {{ user.vorname }}
+          {{ user.nachname }}
+        </a>
+        <div class="mx-2">{{user.instrument?.instrument}}</div>
+        <div class="mx-2"> {{user.status}}</div>
+        <a [routerLink]="['/users', 'detail', { id: user.id, command: 'DELETE' }]" class="btn btn-outline-secondary mx-2">
+          <fa-icon [icon]="faTrashCan"></fa-icon>
+          <span class="d-none d-md-inline ms-3">löschen</span>
+        </a>
+      </div>
+    }
   </div>
-  <a *ngIf="isAdmin()" [routerLink]="['/users', 'detail', { command: 'ADD' }]"
-    class="mt-5 btn btn-outline-primary">Mitglied hinzufügen</a>
+  <a [routerLink]="['/users', 'detail', { command: 'ADD' }]" class="mt-5 btn btn-outline-primary">Mitglied
+  hinzufügen</a>
 </div>

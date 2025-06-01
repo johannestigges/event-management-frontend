@@ -24,35 +24,43 @@
     <div class="row gx-5 mb-3">
       <div class="col">
         <h3>Teilnehmer</h3>
-        <div *ngFor="let participant of participants" class="row">
-          <div class="col">
-            <input [disabled]="form.disabled" type="checkbox" class="form-check-input mx-2 col"
-              [checked]="participant.participate" (click)="participate(participant)" />
+        @for (participant of participants; track participant) {
+          <div class="row">
+            <div class="col">
+              <input [disabled]="form.disabled" type="checkbox" class="form-check-input mx-2 col"
+                [checked]="participant.participate" (click)="participate(participant)" />
             <a [routerLink]="[
               '/users/',
               'detail',
               { id: participant.user_id, command: 'SHOW' }
             ]">
-              {{ userName(participant.user_id) }}
-            </a>
+                {{ userName(participant.user_id) }}
+              </a>
+            </div>
+            @if (form.enabled) {
+              <button class="btn btn-outline-secondary ms-2 col-1"
+                (click)="removeParticipant(participant)">
+                x
+              </button>
+            }
           </div>
-          <div *ngIf="form.enabled" class="btn btn-outline-secondary ms-2 col-1"
-            (click)="removeParticipant(participant)">
-            x
-          </div>
-        </div>
+        }
       </div>
-      <div *ngIf="form.enabled && unassigned_users.length" class="col">
-        <h3>nicht zugeordnete Teilnehmer</h3>
-        <div class="btn btn-outline-primary mb-3" (click)="assignAll()">
-          &lt; alle zuordnen
+      @if (form.enabled && unassigned_users.length) {
+        <div class="col">
+          <h3>nicht zugeordnete Teilnehmer</h3>
+          <button class="btn btn-outline-primary mb-3" (click)="assignAll()">
+            &lt; alle zuordnen
+          </button>
+          @for (user of unassigned_users; track user) {
+            <div>
+              <button (click)="assign(user)" class="btn btn-outline-secondary">
+                &lt; {{ userName(user.id) }}
+              </button>
+            </div>
+          }
         </div>
-        <div *ngFor="let user of unassigned_users">
-          <div (click)="assign(user)" class="btn btn-outline-secondary">
-            &lt; {{ userName(user.id) }}
-          </div>
-        </div>
-      </div>
+      }
     </div>
     <button type="submit" class="btn btn-outline-primary">
       {{ submitButtonText() }}

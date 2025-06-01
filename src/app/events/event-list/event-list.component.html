@@ -1,23 +1,24 @@
 <div class="container" style="max-width: 50rem;">
   <h1>Veranstaltungen</h1>
   <div class="list-group">
-    <div *ngFor="let event of events" class="list-group-item list-group-item-action d-flex">
-      <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
-        class="text-decoration-none flex-fill d-flex">
-        <div class="flex-fill">
-          {{ event.name }}
-        </div>
-        <div>{{ accept_count(event) }} Teilnehmer</div>
-      </a>
-      <a *ngIf="isAdmin()" [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
-        class="btn btn-outline-secondary ms-5">
-        <fa-icon [icon]="faTrashCan"></fa-icon>
-        <span class="d-none d-md-inline ms-3">löschen</span>
-
-      </a>
-    </div>
+    @for (event of events; track event) {
+      <div class="list-group-item list-group-item-action d-flex my-1">
+        <a [routerLink]="['/events', 'detail', { id: event.id, command: 'SHOW' }]"
+          class="text-decoration-none flex-fill d-flex">
+          <div class="flex-fill">
+            {{ event.name }}
+          </div>
+          <div>{{ accept_count(event) }} Teilnehmer</div>
+        </a>
+        <a [routerLink]="['/events', 'detail', { id: event.id, command: 'DELETE' }]"
+          class="btn btn-outline-secondary ms-5">
+          <fa-icon [icon]="faTrashCan"></fa-icon>
+          <span class="d-none d-md-inline ms-3">löschen</span>
+        </a>
+      </div>
+    }
   </div>
-  <a *ngIf="isAdmin()" [routerLink]="['/events', 'detail', { command: 'ADD' }]" class="mt-5 btn btn-outline-primary">
+  <a [routerLink]="['/events', 'detail', { command: 'ADD' }]" class="mt-5 btn btn-outline-primary">
     hinzufügen
   </a>
 </div>

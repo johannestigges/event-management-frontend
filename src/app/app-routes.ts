@@ -20,5 +20,4 @@ export const routes: Routes = [
     { path: 'participate', component: ParticipateComponent, canActivate: [loggedInGuard] },
     { path: 'protocol', component: ProtocolComponent, canActivate: [isAdminGuard] },
     { path: 'anmelden', component: LoginComponent },
-    { path: '**', redirectTo: LOGIN_ROUTE, pathMatch: 'full' },
 ];

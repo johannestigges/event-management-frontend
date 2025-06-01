@@ -1,17 +1,13 @@
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from "@angular/router";
-import { AuthenticationService, ROLE_ADMIN } from "../services/authentication.service";
-import { inject } from "@angular/core";
+import {CanActivateFn} from "@angular/router";
+import {AuthenticationService} from "../services/authentication.service";
+import {inject} from "@angular/core";
 
-export const loggedInGuard: CanActivateFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-) => {
-    return inject(AuthenticationService).user !== null;
+export const loggedInGuard: CanActivateFn = () => {
+  console.log('loggedInGuard', inject(AuthenticationService).isLoggedIn());
+  return inject(AuthenticationService).isLoggedIn()
 }
 
-export const isAdminGuard: CanActivateFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-) => {
-    return inject(AuthenticationService).hasRole(ROLE_ADMIN);
+export const isAdminGuard: CanActivateFn = () => {
+  console.log('isAdminGuard', inject(AuthenticationService).isAdmin());
+  return inject(AuthenticationService).isAdmin();
 }

@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
-import { ErrorService } from '../error/error.service';
-import { Event } from '../model/event';
-import { Participant } from '../model/participant';
-import { User } from '../model/user';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {catchError, Observable} from 'rxjs';
+import {ErrorService} from '../error/error.service';
+import {Event} from '../model/event';
+import {Participant} from '../model/participant';
+import {User} from '../model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +12,13 @@ import { User } from '../model/user';
 export class EventService {
   constructor(
     private readonly http: HttpClient,
-    private readonly errorService: ErrorService) { }
+    private readonly errorService: ErrorService) {
+  }
 
   getAll(): Observable<Event[]> {
     return this.http.get<Event[]>('/rest/events')
       .pipe(catchError((error) =>
         this.errorService.throwError("Fehler beim Lesen der Veranstaltungen", error)));
-    ;
   }
 
   getOne(id: number) {

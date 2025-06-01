@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Command } from 'src/app/model/command';
-import { Participant } from 'src/app/model/participant';
-import { User } from 'src/app/model/user';
-import { AuthenticationService, ROLE_ADMIN } from 'src/app/services/authentication.service';
-import { UserService } from 'src/app/users/user.service';
-import { EventService } from '../event.service';
-import { NgFor, NgIf } from '@angular/common';
-import { LOGIN_ROUTE } from 'src/app/app-routes';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {Command} from 'src/app/model/command';
+import {Participant} from 'src/app/model/participant';
+import {User} from 'src/app/model/user';
+import {UserService} from 'src/app/users/user.service';
+import {EventService} from '../event.service';
+
 
 @Component({
-  selector: 'evm-event-detail',
-  templateUrl: './event-detail.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, RouterLink, ReactiveFormsModule]
+    selector: 'evm-event-detail',
+    templateUrl: './event-detail.component.html',
+    imports: [RouterLink, ReactiveFormsModule]
 })
 export class EventDetailComponent implements OnInit {
   Command = Command;
@@ -24,27 +21,26 @@ export class EventDetailComponent implements OnInit {
   unassigned_users: User[] = [];
   participants: Participant[] = [];
 
-  form = this.fb.group({
-    id: [''],
-    version: [''],
-    name: ['', Validators.required],
-    startAt: ['', Validators.required],
-    endAt: ['', Validators.required],
-  });
+  form;
 
   constructor(
+    private readonly fb: FormBuilder,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly eventService: EventService,
-    private readonly userService: UserService,
-    private readonly authenticationService: AuthenticationService,
-    private readonly fb: FormBuilder
-  ) { }
+    private readonly userService: UserService
+  ) {
+    this.form = this.fb.group({
+      id: [''],
+      version: [''],
+      name: ['', Validators.required],
+      startAt: ['', Validators.required],
+      endAt: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
-    this.authenticationService.hasRole(ROLE_ADMIN)
-      ? this._loadUser()
-      : this.router.navigate([LOGIN_ROUTE]);
+    this._loadUser();
   }
 
   private _loadUser() {
@@ -65,9 +61,11 @@ export class EventDetailComponent implements OnInit {
             this.setParticipants(event.participants);
           });
         }
-        this.isCommand(Command.SHOW) || this.isCommand(Command.DELETE)
-          ? this.form.disable()
-          : this.form.enable();
+        if (this.isCommand(Command.SHOW) || this.isCommand(Command.DELETE)) {
+          this.form.disable();
+        } else {
+          this.form.enable();
+        }
       });
     });
   }
@@ -133,7 +131,7 @@ export class EventDetailComponent implements OnInit {
         this.router.navigate([
           '/events',
           'detail',
-          { id: this._get('id').value, command: 'MODIFY' },
+          {id: this._get('id').value, command: 'MODIFY'},
         ]);
         break;
     }
