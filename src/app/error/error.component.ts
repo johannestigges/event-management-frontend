@@ -1,13 +1,13 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {faEye, faEyeSlash, faFrown} from '@fortawesome/free-regular-svg-icons';
 import {ErrorData} from './error.service';
-import {NgFor, NgIf} from '@angular/common';
+
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 
 @Component({
     selector: 'evm-error',
     templateUrl: './error.component.html',
-    imports: [NgIf, NgFor, FaIconComponent]
+    imports: [FaIconComponent]
 })
 export class ErrorComponent implements OnChanges {
   readonly REMOVE_ERROR_AFTER = 10_000;

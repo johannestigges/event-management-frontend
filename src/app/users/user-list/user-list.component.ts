@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from 'src/app/model/user';
 import {UserService} from '../user.service';
-import {NgFor} from '@angular/common';
+
 import {RouterLink} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
@@ -9,7 +9,7 @@ import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
 @Component({
     selector: 'evm-user-list',
     templateUrl: './user-list.component.html',
-    imports: [NgFor, RouterLink, FontAwesomeModule]
+    imports: [RouterLink, FontAwesomeModule]
 })
 export class UserListComponent implements OnInit {
   userList: User[] = [];

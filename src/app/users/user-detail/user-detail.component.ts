@@ -6,12 +6,12 @@ import {Command} from 'src/app/model/command';
 import {Event} from 'src/app/model/event';
 import {Instrument, UserStatus} from 'src/app/model/user';
 import {UserService} from '../user.service';
-import {NgFor, NgIf} from '@angular/common';
+
 
 @Component({
     selector: 'evm-user-detail',
     templateUrl: './user-detail.component.html',
-    imports: [NgIf, NgFor, RouterLink, FormsModule, ReactiveFormsModule]
+    imports: [RouterLink, FormsModule, ReactiveFormsModule]
 })
 export class UserDetailComponent implements OnInit {
   Command = Command;

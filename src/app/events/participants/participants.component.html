@@ -1,29 +1,39 @@
 <table class="table">
   <thead>
-  <tr>
-    <th>Name</th>
-    <th class="d-none d-sm-table-cell">Instrument</th>
-    <th *ngFor="let event of events">{{ event.name }}</th>
-  </tr>
+    <tr>
+      <th>Name</th>
+      <th class="d-none d-sm-table-cell">Instrument</th>
+      @for (event of events; track event) {
+        <th>{{ event.name }}</th>
+      }
+    </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let user of users">
-    <td>
-      <a [routerLink]="['/participate',{id:user.id}]">
-        <span>{{ user.vorname }}</span>
-        <span class="d-none d-sm-inline"> {{ user.nachname }}</span>
-      </a>
-    </td>
-    <td class="d-none d-sm-block">
-      <span class="d-none d-md-table-cell">{{ user.instrument?.gruppe }} / </span>
-      <span>{{ user.instrument?.instrument }}</span>
-    </td>
-    <td *ngFor="let event of events">
-      <fa-icon *ngIf="participate(event,user)" [icon]="faCheckCircle" class="text-success">
-      </fa-icon>
-      <fa-icon *ngIf="!participate(event,user)" [icon]="faXmarkCircle" class="text-danger">
-      </fa-icon>
-    </td>
-  </tr>
+    @for (user of users; track user) {
+      <tr>
+        <td>
+          <a [routerLink]="['/participate',{id:user.id}]">
+            <span>{{ user.vorname }}</span>
+            <span class="d-none d-sm-inline"> {{ user.nachname }}</span>
+          </a>
+        </td>
+        <td class="d-none d-sm-block">
+          <span class="d-none d-md-table-cell">{{ user.instrument?.gruppe }} / </span>
+          <span>{{ user.instrument?.instrument }}</span>
+        </td>
+        @for (event of events; track event) {
+          <td>
+            @if (participate(event,user)) {
+              <fa-icon [icon]="faCheckCircle" class="text-success">
+              </fa-icon>
+            }
+            @if (!participate(event,user)) {
+              <fa-icon [icon]="faXmarkCircle" class="text-danger">
+              </fa-icon>
+            }
+          </td>
+        }
+      </tr>
+    }
   </tbody>
 </table>

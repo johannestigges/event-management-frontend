@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
-import {NgIf} from '@angular/common';
+
 import {LOGIN_ROUTE, ROUTE_AFTER_LOGIN} from '../app-routes';
 
 @Component({
     selector: 'evm-login',
     templateUrl: './login.component.html',
-    imports: [NgIf, ReactiveFormsModule]
+    imports: [ReactiveFormsModule]
 })
 export class LoginComponent implements OnInit {
 

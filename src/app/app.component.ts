@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {AuthenticationService} from './services/authentication.service';
 import {NO_ERROR, ErrorService, ErrorData} from './error/error.service';
-import {NgIf} from '@angular/common';
+
 import {ErrorComponent} from './error/error.component';
 import {Router, RouterLink, RouterOutlet} from '@angular/router';
 import {LOGIN_ROUTE} from './app-routes';
@@ -10,7 +10,7 @@ import {LOGIN_ROUTE} from './app-routes';
 @Component({
     selector: 'evm-root',
     templateUrl: './app.component.html',
-    imports: [NgIf, ErrorComponent, RouterOutlet, RouterLink]
+    imports: [ErrorComponent, RouterOutlet, RouterLink]
 })
 export class AppComponent implements OnInit, OnDestroy {
 
