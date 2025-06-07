@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, throwError } from 'rxjs';
+import { HttpErrorResponse } from "@angular/common/http";
 
 export interface ErrorData {
   hasError: boolean;
@@ -35,7 +36,7 @@ export class ErrorService {
     this.errorChange.next({ hasError: true, message, description, details });
   }
 
-  throwError(message: string, error: any) {
+  throwError(message: string, error: HttpErrorResponse) {
     if (error.status === 401) {
       this.router.navigate(['/anmelden']);
     }
