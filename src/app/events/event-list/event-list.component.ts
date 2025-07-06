@@ -13,7 +13,7 @@ import {faTrashCan} from '@fortawesome/free-regular-svg-icons';
 })
 export class EventListComponent implements OnInit {
   events: Event[] = [];
-  readonly faTrashCan = faTrashCan;
+  protected readonly faTrashCan = faTrashCan;
 
   constructor(
     private readonly eventService: EventService
@@ -33,6 +33,7 @@ export class EventListComponent implements OnInit {
   }
 
   private _loadEvents() {
-    this.eventService.getAll().subscribe((events) => (this.events = events));
+    this.eventService.getAll()
+      .subscribe((events) => (this.events = events));
   }
 }

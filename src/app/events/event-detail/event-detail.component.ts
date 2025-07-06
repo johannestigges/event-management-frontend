@@ -7,7 +7,6 @@ import {User} from 'src/app/model/user';
 import {UserService} from 'src/app/users/user.service';
 import {EventService} from '../event.service';
 
-
 @Component({
     selector: 'evm-event-detail',
     templateUrl: './event-detail.component.html',
@@ -40,10 +39,10 @@ export class EventDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._loadUser();
+    this._loadUsers();
   }
 
-  private _loadUser() {
+  private _loadUsers() {
     this.userService.getAll().subscribe((users) => {
       this.users = users;
       this.unassigned_users = users;
@@ -51,17 +50,17 @@ export class EventDetailComponent implements OnInit {
         if (params.has('command')) {
           this.command = Command[params.get('command') as keyof typeof Command];
         }
-        if (!this.isCommand(Command.ADD)) {
+        if (!this._isCommand(Command.ADD)) {
           this.eventService.getOne(Number(params.get('id'))).subscribe((event) => {
             this._get('id').setValue(event.id);
             this._get('version').setValue(event.version);
             this._get('name').setValue(event.name);
             this._get('startAt').setValue(event.startAt);
             this._get('endAt').setValue(event.endAt);
-            this.setParticipants(event.participants);
+            this._setParticipants(event.participants);
           });
         }
-        if (this.isCommand(Command.SHOW) || this.isCommand(Command.DELETE)) {
+        if (this._isCommand(Command.SHOW) || this._isCommand(Command.DELETE)) {
           this.form.disable();
         } else {
           this.form.enable();
@@ -144,7 +143,7 @@ export class EventDetailComponent implements OnInit {
     }
   }
 
-  setParticipants(participants?: Participant[]) {
+  private _setParticipants(participants?: Participant[]) {
     if (participants) {
       this.participants = participants;
       this.unassigned_users = this.unassigned_users.filter(
@@ -153,7 +152,7 @@ export class EventDetailComponent implements OnInit {
     }
   }
 
-  isCommand(command: Command) {
+  private _isCommand(command: Command) {
     return this.command === command;
   }
 
