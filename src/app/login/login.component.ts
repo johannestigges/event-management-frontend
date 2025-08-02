@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 
 import {LOGIN_ROUTE, ROUTE_AFTER_LOGIN} from '../app-routes';
+import {tap} from "rxjs";
 
 @Component({
     selector: 'evm-login',
@@ -55,14 +56,14 @@ export class LoginComponent implements OnInit {
       this.authenticationService.login(this.form.controls.user.value!, this.form.controls.password.value!)
         .subscribe({
           next: () => {
-            console.log('login successful, navigate to', ROUTE_AFTER_LOGIN);
             this.authenticationService.getLoggedInUser()
               .subscribe(() => this.router.navigateByUrl(ROUTE_AFTER_LOGIN));
           },
-          error: (error) =>
-            this.errorMessage = error.status === 401
+          error: (error) => {
+            this.errorMessage = error === '401'
               ? 'ungültige Anmeldedaten'
               : 'Fehler bei der Anmeldung'
+          }
         });
     }
   }
